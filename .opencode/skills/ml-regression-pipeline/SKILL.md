@@ -280,11 +280,17 @@ Sort by R² descending, highlight best row:
 
 Create `index.html` using Tailwind CSS CDN with:
 - Dark theme (obsidian/charcoal), green accent (#008060)
-- Inter + Roboto Mono fonts
-- Hero section with key metrics (R², RMSE, feature count, methods count)
+- Inter + Roboto Mono fonts via Google Fonts
+- Hero section with 4 key metric cards (Best R², Best RMSE, Methods, Optimal Features)
 - Sections embedding all 11 figures with descriptive captions
 - Insight callout boxes for each section
 - "View on GitHub" link
+
+**Hardcoded HTML data tables** (do NOT use images for data — render as HTML `<table>`):
+
+1. **Method Comparison Results table** — all 5 methods with Rank, Method, n_Feat, Selected Features, RMSE, Test R², Adj. R², CV R² Mean, CV R² Std. Green highlight on best row. Red on worst row.
+2. **Sequential Feature Addition Results table** — n_Feat 1-5 with Selected Features, RMSE, R². Green highlight on optimal row (2 features).
+3. **Feature Votes cards** — 5 cards in a grid with feature name, vote count (X/5), and a progress bar (green for 5/5, yellow for 3/5, gray for 2/5, red for 1/5).
 
 Workflow file `.github/workflows/deploy.yml`:
 ```yaml

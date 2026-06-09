@@ -23,6 +23,7 @@
 8. [模型診斷](#8-模型診斷)
 9. [部署架構](#9-部署架構)
 10. [附錄](#10-附錄)
+11. [變更日誌](#11-變更日誌-changelog)
 
 ---
 
@@ -386,7 +387,21 @@ Profit = 56,713.92 + 0.7649 × R&D_Spend + 0.0287 × Marketing_Spend
 - **觸發**：推送至 `master` 分支
 - **建置**：GitHub Actions 自動部署靜態檔案
 - **URL**：`https://miccowang66-max.github.io/L6-new-model/`
-- **內容**：互動式 HTML 儀表板，內嵌全部 11 張分析圖表
+- **技術**：Tailwind CSS CDN + Inter / Roboto Mono 字型
+
+#### 儀表板區塊
+
+| 區塊 | 內容 |
+|------|------|
+| **Hero** | 4 張指標卡（R² 0.9474、RMSE $8,199、5 方法、2 最佳特徵） |
+| **Correlation Analysis** | 熱力圖 + 散佈圖 + 箱型圖 + 洞察說明 |
+| **5 Feature Selection Methods** | 方法比較圖 + 熱力圖 + 特徵比較圖 |
+| **Method Comparison Results** | **HTML 表格**：5 方法完整績效（排名、特徵數、RMSE、Test R²、Adj. R²、CV R²） |
+| **Sequential Feature Addition** | 雙線圖 + **HTML 表格**：1→5 特徵數 RMSE/R² 變化 |
+| **Feature Votes** | **5 張視覺化卡片**（進度條），每個特徵得票數（X/5） |
+| **Model Refinement** | 精煉模型比較圖 + 預測 vs 實際圖 + 殘差圖 |
+| **Complete Dashboard** | 4 合 1 全覽儀表板 |
+| **Conclusion** | 總結洞察 + 返回頂部 / GitHub 連結 |
 
 ### 9.2 CI/CD 管線
 
@@ -404,6 +419,7 @@ Profit = 56,713.92 + 0.7649 × R&D_Spend + 0.0287 × Marketing_Spend
 - 路徑：`.opencode/skills/ml-regression-pipeline/SKILL.md`
 - 觸發條件：使用者提及 regression analysis、feature selection、backward elimination
 - 可複用性：在其他專案中 Agent 可自動載入此 Skill 並按照相同流程執行
+- Skill 涵蓋：架構設計、5 方法程式碼、診斷檢查表、儀表板部署、白皮書生成、README 格式
 
 ---
 
@@ -447,6 +463,21 @@ Profit = 56,713.92 + 0.7649 × R&D_Spend + 0.0287 × Marketing_Spend
 | Box-Cox Transformation | 將非常態分佈的變數轉換為近似常態的冪次轉換 |
 | Omnibus Test | 檢定殘差是否服從常態分佈的綜合檢定 |
 | Durbin-Watson | 檢測殘差是否存在一階自相關的統計量（理想值 ≈ 2.0） |
+
+---
+
+## 11. 變更日誌 (Changelog)
+
+| 版本 | 日期 | 變更內容 |
+|------|------|---------|
+| 1.0 | 2026-06-09 | 初始版本：完整 ML 管線、5 種特徵選取方法、11 張圖表、6 份報告 |
+| 1.1 | 2026-06-09 | 加入 GitHub Pages 儀表板（`index.html`）與 CI/CD 部署管線（`.github/workflows/deploy.yml`） |
+| 1.2 | 2026-06-09 | 加入 `WHITEPAPER.md` 技術白皮書（10 章節） |
+| 1.3 | 2026-06-09 | 加入 `README.md`（含 Badge 與 Live Demo 連結）及 `.gitignore`（排除 .env） |
+| 1.4 | 2026-06-09 | 加入 `design.md` 架構設計文件、`supplement_analysis.py` 補充診斷腳本 |
+| 1.5 | 2026-06-09 | 儀表板新增：Method Comparison Results 表格、Sequential Addition 表格、Feature Votes 卡片 |
+| 1.6 | 2026-06-09 | 封裝 `ml-regression-pipeline` OpenCode Skill（16 步驟完整工作流程） |
+| 1.7 | 2026-06-09 | 白皮書更新：第 9 章部署架構擴充儀表板區塊詳情、第 11 章新增變更日誌 |
 
 ---
 
