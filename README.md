@@ -1,6 +1,6 @@
 #  L6 New Model — ML Regression Pipeline
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://github.com/miccowang66-max/L6-new-model/blob/master/LICENSE) [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square&logo=python)](https://www.python.org/downloads/) [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3+-orange?style=flat-square)](https://scikit-learn.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://github.com/miccowang66-max/L6-new-model/blob/master/LICENSE) [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square&logo=python)](https://www.python.org/downloads/) [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3+-orange?style=flat-square)](https://scikit-learn.org/) [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-7c3aed?style=flat-square&logo=github)](https://miccowang66-max.github.io/L6-new-model/)
 
 > A production-ready Multiple Linear Regression pipeline with 5 feature selection methods, outlier handling, residual diagnostics, and comprehensive visualizations.  
 > **Python · scikit-learn · statsmodels · seaborn · One-Hot Encoding · Backward Elimination**
@@ -11,7 +11,8 @@
 
 | Platform | URL | Description |
 |----------|-----|-------------|
-| **GitHub** | [miccowang66-max/L6-new-model](https://github.com/miccowang66-max/L6-new-model) | Full source code, scripts, and reports |
+| **GitHub Pages** | [miccowang66-max.github.io/L6-new-model](https://miccowang66-max.github.io/L6-new-model/) | Interactive dashboard with all figures and analysis |
+| **GitHub Repo** | [miccowang66-max/L6-new-model](https://github.com/miccowang66-max/L6-new-model) | Full source code, scripts, and reports |
 
 ---
 
