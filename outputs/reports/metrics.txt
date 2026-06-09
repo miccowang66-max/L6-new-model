@@ -1,0 +1,41 @@
+============================================================
+ 50_Startups 多元線性迴歸 — 模型評估報告
+============================================================
+
+最終保留特徵 (1 個): ['R&D Spend']
+被淘汰特徵: ['Administration', 'Marketing Spend', 'State_Florida', 'State_New York']
+顯著水準 alpha: 0.05
+
+測試集 R-squared Score:        0.946459
+測試集 Adjusted R-squared:     0.939766
+測試集 MAE (平均絕對誤差):    6772.4533
+測試集 RMSE (均方根誤差):    8274.8680
+
+迴歸方程式:
+Profit = 111199.3064 (+38698.5197) * R&D Spend
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                 Profit   R-squared:                       0.945
+Model:                            OLS   Adj. R-squared:                  0.944
+Method:                 Least Squares   F-statistic:                     652.4
+Date:                Tue, 09 Jun 2026   Prob (F-statistic):           1.56e-25
+Time:                        15:48:23   Log-Likelihood:                -423.09
+No. Observations:                  40   AIC:                             850.2
+Df Residuals:                      38   BIC:                             853.6
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const       1.112e+05   1541.590     72.133      0.000    1.08e+05    1.14e+05
+R&D Spend    3.87e+04   1515.093     25.542      0.000    3.56e+04    4.18e+04
+==============================================================================
+Omnibus:                       13.132   Durbin-Watson:                   2.325
+Prob(Omnibus):                  0.001   Jarque-Bera (JB):               16.254
+Skew:                          -0.991   Prob(JB):                     0.000295
+Kurtosis:                       5.413   Cond. No.                         1.05
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

@@ -1,0 +1,17 @@
+============================================================
+ 5 Feature Selection Methods — Comparison Report
+============================================================
+
+              Method                                                                  Features  n_Feat  Test_R2   Adj_R2  CV_R2_mean  CV_R2_std
+   Mutual Info (top)                                                R&D Spend, Marketing Spend       2 0.947439 0.932421    0.915004   0.052358
+Backward Elimination                                                                 R&D Spend       1 0.946459 0.939766    0.906946   0.056342
+   Forward Selection                                                                 R&D Spend       1 0.946459 0.939766    0.906946   0.056342
+    RFE (CV-optimal)                                 R&D Spend, Marketing Spend, State_Florida       3 0.945136 0.917704    0.878005   0.104982
+            Lasso L1 R&D Spend, Administration, Marketing Spend, State_Florida, State_New York       5 0.934707 0.853090    0.861333   0.114300
+
+Feature votes:
+R&D Spend          5
+Marketing Spend    3
+State_Florida      2
+Administration     1
+State_New York     1
