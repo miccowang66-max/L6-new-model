@@ -145,8 +145,151 @@
     </div>
   </section>
 
-  <!-- ====== SECTION 3: SEQUENTIAL ADDITION ====== -->
+  <!-- ====== SECTION 2b: METHOD COMPARISON RESULTS TABLE ====== -->
   <section class="py-20 px-6 max-w-6xl mx-auto">
+    <div class="fade-in">
+      <p class="text-accent font-mono text-sm tracking-widest uppercase">Data</p>
+      <h2 class="text-4xl font-bold text-white mb-2">Method Comparison Results</h2>
+      <p class="text-gray-400 mb-10">Full performance metrics for all 5 feature selection methods (sorted by Test R²)</p>
+
+      <div class="overflow-x-auto bg-charcoal rounded-2xl border border-slate hover-card">
+        <table class="w-full text-sm text-left">
+          <thead>
+            <tr class="bg-accent/20 text-accent uppercase text-xs tracking-wider">
+              <th class="px-6 py-4">Rank</th>
+              <th class="px-6 py-4">Method</th>
+              <th class="px-6 py-4 text-center">n_Feat</th>
+              <th class="px-6 py-4">Selected Features</th>
+              <th class="px-6 py-4 text-right">RMSE</th>
+              <th class="px-6 py-4 text-right">Test R²</th>
+              <th class="px-6 py-4 text-right">Adj. R²</th>
+              <th class="px-6 py-4 text-right">CV R² Mean</th>
+              <th class="px-6 py-4 text-right">CV R² Std</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate">
+            <tr class="bg-green-900/20 hover:bg-slate/50 transition">
+              <td class="px-6 py-4 font-mono text-accent font-bold">#1</td>
+              <td class="px-6 py-4 text-white font-semibold">Mutual Info (top)</td>
+              <td class="px-6 py-4 text-center font-mono">2</td>
+              <td class="px-6 py-4 font-mono text-gray-300">R&D Spend, Marketing Spend</td>
+              <td class="px-6 py-4 text-right font-mono text-green-400">$8,198.80</td>
+              <td class="px-6 py-4 text-right font-mono text-green-400 font-bold">0.94744</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">0.93242</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">0.91500</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-500">0.05242</td>
+            </tr>
+            <tr class="hover:bg-slate/50 transition">
+              <td class="px-6 py-4 font-mono text-gray-400">#2</td>
+              <td class="px-6 py-4 text-white font-semibold">Backward Elimination</td>
+              <td class="px-6 py-4 text-center font-mono">1</td>
+              <td class="px-6 py-4 font-mono text-gray-300">R&D Spend</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">$8,274.87</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">0.94646</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">0.93977</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">0.90695</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-500">0.05627</td>
+            </tr>
+            <tr class="bg-charcoal/80 hover:bg-slate/50 transition">
+              <td class="px-6 py-4 font-mono text-gray-400">#3</td>
+              <td class="px-6 py-4 text-white font-semibold">Forward Selection</td>
+              <td class="px-6 py-4 text-center font-mono">1</td>
+              <td class="px-6 py-4 font-mono text-gray-300">R&D Spend</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">$8,274.87</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">0.94646</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">0.93977</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">0.90695</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-500">0.05627</td>
+            </tr>
+            <tr class="hover:bg-slate/50 transition">
+              <td class="px-6 py-4 font-mono text-gray-400">#4</td>
+              <td class="px-6 py-4 text-white font-semibold">RFE (CV-optimal)</td>
+              <td class="px-6 py-4 text-center font-mono">3</td>
+              <td class="px-6 py-4 font-mono text-gray-300">R&D Spend, Marketing Spend, State_Florida</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">$8,376.45</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">0.94514</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">0.91770</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">0.87801</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-500">0.10501</td>
+            </tr>
+            <tr class="hover:bg-slate/50 transition">
+              <td class="px-6 py-4 font-mono text-gray-400">#5</td>
+              <td class="px-6 py-4 text-white font-semibold">Lasso L1</td>
+              <td class="px-6 py-4 text-center font-mono">5</td>
+              <td class="px-6 py-4 font-mono text-gray-300">R&D Spend, Admin, Marketing, State_FL, State_NY</td>
+              <td class="px-6 py-4 text-right font-mono text-red-400">$9,137.99</td>
+              <td class="px-6 py-4 text-right font-mono text-red-400">0.93471</td>
+              <td class="px-6 py-4 text-right font-mono text-red-400">0.85309</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">0.86133</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-500">0.11433</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Sequential Addition table -->
+      <h2 class="text-3xl font-bold text-white mb-2 mt-14">Sequential Feature Addition Results</h2>
+      <p class="text-gray-400 mb-8">Performance tracking as features are added in importance order</p>
+
+      <div class="overflow-x-auto bg-charcoal rounded-2xl border border-slate hover-card">
+        <table class="w-full text-sm text-left">
+          <thead>
+            <tr class="bg-accent/20 text-accent uppercase text-xs tracking-wider">
+              <th class="px-6 py-4 text-center">n_Feat</th>
+              <th class="px-6 py-4">Selected Features</th>
+              <th class="px-6 py-4 text-right">RMSE</th>
+              <th class="px-6 py-4 text-right">R²</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate">
+            <tr class="hover:bg-slate/50 transition">
+              <td class="px-6 py-4 text-center font-mono">1</td>
+              <td class="px-6 py-4 font-mono text-gray-300">R&D Spend</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">$8,274.87</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">0.94646</td>
+            </tr>
+            <tr class="bg-green-900/20 hover:bg-slate/50 transition">
+              <td class="px-6 py-4 text-center font-mono text-accent font-bold">2</td>
+              <td class="px-6 py-4 font-mono text-white font-semibold">R&D Spend, Marketing Spend</td>
+              <td class="px-6 py-4 text-right font-mono text-green-400 font-bold">$8,198.80</td>
+              <td class="px-6 py-4 text-right font-mono text-green-400 font-bold">0.94744</td>
+            </tr>
+            <tr class="hover:bg-slate/50 transition">
+              <td class="px-6 py-4 text-center font-mono">3</td>
+              <td class="px-6 py-4 font-mono text-gray-300">R&D Spend, Marketing Spend, State_Florida</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">$8,376.45</td>
+              <td class="px-6 py-4 text-right font-mono text-gray-300">0.94514</td>
+            </tr>
+            <tr class="hover:bg-slate/50 transition">
+              <td class="px-6 py-4 text-center font-mono">4</td>
+              <td class="px-6 py-4 font-mono text-gray-300">R&D Spend, Marketing Spend, State_FL, Administration</td>
+              <td class="px-6 py-4 text-right font-mono text-red-400">$9,068.54</td>
+              <td class="px-6 py-4 text-right font-mono text-red-400">0.93570</td>
+            </tr>
+            <tr class="hover:bg-slate/50 transition">
+              <td class="px-6 py-4 text-center font-mono">5</td>
+              <td class="px-6 py-4 font-mono text-gray-300">All features</td>
+              <td class="px-6 py-4 text-right font-mono text-red-400">$9,137.99</td>
+              <td class="px-6 py-4 text-right font-mono text-red-400">0.93471</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bg-slate/50 rounded-xl p-5 mt-8 border border-gray-700">
+        <p class="font-mono text-accent text-sm mb-2">Key Insight</p>
+        <p class="text-gray-300 leading-relaxed">
+          <span class="text-white font-semibold">Mutual Information (2 features)</span> achieves the highest Test R²,
+          while <span class="text-white font-semibold">Backward Elimination (1 feature)</span> has the highest Adj. R².
+          Lasso L1 with all 5 features is the worst performer — proof that
+          <span class="text-red-400">more features ≠ better model</span>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== SECTION 3: SEQUENTIAL ADDITION ====== -->
+  <section class="py-20 px-6 max-w-6xl mx-auto bg-charcoal/30 rounded-3xl my-10">
     <div class="fade-in">
       <p class="text-accent font-mono text-sm tracking-widest uppercase">Stage 3</p>
       <h2 class="text-4xl font-bold text-white mb-2">Sequential Feature Addition</h2>
@@ -164,6 +307,38 @@
           Adding more features <span class="text-red-400">degrades performance</span> — RMSE rises and R² drops,
           indicating overfitting. The sweet spot delivers <span class="text-accent font-mono">R² = 0.9474</span> and <span class="text-accent font-mono">RMSE = $8,199</span>.
         </p>
+      </div>
+
+      <!-- Feature Votes -->
+      <h2 class="text-3xl font-bold text-white mb-2 mt-14">Feature Votes Across Methods</h2>
+      <p class="text-gray-400 mb-8">How many of the 5 methods selected each feature</p>
+
+      <div class="grid grid-cols-5 gap-4">
+        <div class="bg-charcoal rounded-xl p-5 border border-green-500/50 hover-card text-center">
+          <p class="text-white font-semibold text-sm mb-2">R&D Spend</p>
+          <p class="text-green-400 font-mono text-3xl font-bold">5/5</p>
+          <div class="mt-2 bg-green-500/20 rounded-full h-2"><div class="bg-green-400 rounded-full h-2" style="width:100%"></div></div>
+        </div>
+        <div class="bg-charcoal rounded-xl p-5 border border-yellow-500/50 hover-card text-center">
+          <p class="text-white font-semibold text-sm mb-2">Marketing Spend</p>
+          <p class="text-yellow-400 font-mono text-3xl font-bold">3/5</p>
+          <div class="mt-2 bg-yellow-500/20 rounded-full h-2"><div class="bg-yellow-400 rounded-full h-2" style="width:60%"></div></div>
+        </div>
+        <div class="bg-charcoal rounded-xl p-5 border border-gray-500/50 hover-card text-center">
+          <p class="text-white font-semibold text-sm mb-2">State_Florida</p>
+          <p class="text-gray-400 font-mono text-3xl font-bold">2/5</p>
+          <div class="mt-2 bg-gray-500/20 rounded-full h-2"><div class="bg-gray-400 rounded-full h-2" style="width:40%"></div></div>
+        </div>
+        <div class="bg-charcoal rounded-xl p-5 border border-red-500/30 hover-card text-center">
+          <p class="text-white font-semibold text-sm mb-2">Administration</p>
+          <p class="text-red-400 font-mono text-3xl font-bold">1/5</p>
+          <div class="mt-2 bg-red-500/20 rounded-full h-2"><div class="bg-red-400 rounded-full h-2" style="width:20%"></div></div>
+        </div>
+        <div class="bg-charcoal rounded-xl p-5 border border-red-500/30 hover-card text-center">
+          <p class="text-white font-semibold text-sm mb-2">State_New York</p>
+          <p class="text-red-400 font-mono text-3xl font-bold">1/5</p>
+          <div class="mt-2 bg-red-500/20 rounded-full h-2"><div class="bg-red-400 rounded-full h-2" style="width:20%"></div></div>
+        </div>
       </div>
     </div>
   </section>
