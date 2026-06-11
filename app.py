@@ -282,8 +282,8 @@ with st.expander("🔙 後向淘汰 (Backward Elimination) — 基於 P 值，�
 
     # Alpha slider
     alpha = st.slider(
-        "顯著水準 α（拖曳調整門檻）",
-        min_value=0.01, max_value=0.10, value=0.05, step=0.01,
+        "顯著水準 α（拖曳調整門檻，觀察哪些特徵被保留）",
+        min_value=0.00, max_value=1.00, value=0.05, step=0.01,
         key="be_alpha",
     )
 
@@ -333,7 +333,7 @@ with st.expander("🔙 後向淘汰 (Backward Elimination) — 基於 P 值，�
         st.success(f"**保留 ({len(kept)} 個)**: {', '.join(kept) if kept else '無'}")
         if removed:
             st.error(f"**剔除 ({len(removed)} 個)**: {', '.join(removed)}")
-        st.caption(f"α = {alpha:.2f} · 標準 α = 0.05 時保留 R&D + Marketing")
+        st.caption(f"α = {alpha:.2f} · 標準 α = 0.05 時保留 R&D + Marketing\n拖曳滑桿可觀察不同門檻下特徵取捨變化")
 
 # 2. Forward Selection
 with st.expander("🔜 前向選擇 (Forward Selection) — 從零開始，逐一加入貢獻最大的特徵", expanded=False):
