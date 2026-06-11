@@ -546,6 +546,102 @@ with d4:
 st.divider()
 
 # ═══════════════════════════════════════════════════════════════════════
+# 4.5 效率轉折點 (Elbow Point)
+# ═══════════════════════════════════════════════════════════════════════
+st.header("📈 效率轉折點 — 模型複雜度與預測效能的權衡 (Elbow Point Analysis)")
+
+st.markdown("""
+在機器學習中，**Elbow Point（轉折點）** 代表模型複雜度與預測效能之間的最佳平衡點。
+當特徵數量增加時，模型可能出現兩種情況：
+- **擬合不足 (Underfitting)**：特徵太少，模型無法捕捉資料的真實規律。
+- **過度擬合 (Overfitting)**：特徵太多，模型記住了訓練資料中的雜訊，導致測試集表現下降。
+
+以下圖表同時展示 RMSE 與 R² 隨特徵數量變化的雙軸曲線，轉折點即為效能最優的特徵數。
+""")
+
+# Dual-axis elbow point chart
+fig_elbow = go.Figure()
+
+# RMSE trace (left y-axis)
+fig_elbow.add_trace(go.Scatter(
+    x=df_sfa["特徵數"], y=df_sfa["RMSE"],
+    mode="lines+markers", name="RMSE",
+    line=dict(color="#f97316", width=3),
+    marker=dict(size=14, color="#f97316", line=dict(width=1, color="white")),
+    yaxis="y1",
+    hovertemplate="<b>特徵數</b>: %{x}<br><b>RMSE</b>: $%{y:,.2f}<extra></extra>",
+))
+
+# R² trace (right y-axis)
+fig_elbow.add_trace(go.Scatter(
+    x=df_sfa["特徵數"], y=df_sfa["R-squared"],
+    mode="lines+markers", name="R²",
+    line=dict(color="#10b981", width=3),
+    marker=dict(size=14, color="#10b981", line=dict(width=1, color="white")),
+    yaxis="y2",
+    hovertemplate="<b>特徵數</b>: %{x}<br><b>R²</b>: %{y:.4f}<extra></extra>",
+))
+
+# Highlight elbow point (feature count = 2)
+fig_elbow.add_vline(
+    x=2, line_dash="dash", line_width=3, line_color="#1e1e1e",
+    annotation=dict(
+        text="<b>轉折點<br>(Elbow Point)</b>",
+        font=dict(size=14, color="#1e1e1e"),
+        bgcolor="#fef08a", borderpad=4,
+    ),
+)
+
+# Add annotation for overfitting zone
+fig_elbow.add_vrect(
+    x0=2.5, x1=5.5,
+    fillcolor="#ef4444", opacity=0.08,
+    annotation_text="過度擬合區域",
+    annotation_position="top right",
+    annotation_font=dict(color="#ef4444"),
+)
+
+fig_elbow.update_layout(
+    title="效率轉折點分析：RMSE 與 R² 雙軸曲線",
+    xaxis=dict(tickmode="linear", tick0=1, dtick=1, title="特徵數量"),
+    yaxis=dict(title="RMSE ($)", titlefont=dict(color="#f97316"), tickprefix="$", tickformat=","),
+    yaxis2=dict(
+        title="R²", titlefont=dict(color="#10b981"),
+        overlaying="y", side="right", range=[0.92, 0.96],
+    ),
+    hovermode="x unified",
+    legend=dict(orientation="h", y=1.12, x=0.5, xanchor="center"),
+)
+st.plotly_chart(fig_elbow, use_container_width=True)
+
+# Explanation
+col_e1, col_e2 = st.columns(2)
+with col_e1:
+    st.success(f"""
+    ### ✅ 轉折點之前 (特徵數 ≤ {BEST_N})
+    
+    - **1 個特徵 (R&D)**：R² = 0.9465，RMSE = $8,274.87
+    - **2 個特徵 (R&D + Marketing)**：R² = 0.9474，RMSE = $8,198.80 ← **最佳**
+    
+    加入 Marketing 後，RMSE 降低 **$76.07**，R² 提升至 **0.9474**，
+    以極小複雜度代價換取預測效能提升。
+    """)
+with col_e2:
+    st.error(f"""
+    ### ❌ 轉折點之後 (特徵數 > {BEST_N})
+    
+    - **3 個特徵**：RMSE 反升至 $8,376.45，R² 降至 0.9451
+    - **5 個特徵**：RMSE 惡化至 $9,137.99，R² 降至 0.9347
+    
+    State_Florida、Administration、State_New York 為**雜訊變數**，
+    加入後模型開始學習訓練集中的無關模式，導致泛化能力下降。
+    """)
+
+st.caption("💡 **結論**：2 個特徵（R&D Spend + Marketing Spend）為最佳組合，符合「奧卡姆剃刀」原則 — 最簡潔的模型往往是最好的模型。")
+
+st.divider()
+
+# ═══════════════════════════════════════════════════════════════════════
 # 五、關鍵發現與實驗結果
 # ═══════════════════════════════════════════════════════════════════════
 st.header("五、關鍵發現與實驗結果 (以 50_Startups 為例)")
