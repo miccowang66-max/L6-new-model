@@ -12,7 +12,7 @@
 | Platform | URL | Description |
 |----------|-----|-------------|
 | **Streamlit App** | [l6-new-model.streamlit.app](https://l6-new-model.streamlit.app/) | Interactive CRISP-DM dashboard with data exploration, modeling workflow, and SFA charts |
-| **GitHub Pages** | [miccowang66-max.github.io/L6-new-model](https://miccowang66-max.github.io/L6-new-model/) | Static dashboard with all figures, tables, and analysis |
+| **Infographic (GitHub Pages)** | [miccowang66-max.github.io/L6-new-model](https://miccowang66-max.github.io/L6-new-model/) | Hand-drawn Excalidraw-style infographic with interactive SFA chart, 8-sections |
 | **Technical Whitepaper** | [WHITEPAPER.md](./WHITEPAPER.md) | 14-chapter tutorial-grade document (quick start, business guide, FAQ, diagnostics) |
 | **GitHub Repo** | [miccowang66-max/L6-new-model](https://github.com/miccowang66-max/L6-new-model) | Full source code, scripts, and reports |
 
@@ -94,6 +94,8 @@ streamlit run app.py
 
 ```
 L6-new-model/
+├── index.html                          # GitHub Pages infographic (hand-drawn aesthetic)
+├── infographic.html                    # Infographic source (deployed via index.html)
 ├── README.md                           # Project documentation
 ├── WHITEPAPER.md                       # 14-chapter technical whitepaper (tutorial)
 ├── requirements.txt                    # Python dependencies

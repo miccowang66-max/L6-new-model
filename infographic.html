@@ -67,14 +67,14 @@
     }
 
     .container {
-      max-width: 1200px;
+      max-w: 1200px;
       margin: 0 auto;
     }
 
     /* ====== HEADER BANNER ====== */
     header {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
       position: relative;
     }
 
@@ -141,14 +141,6 @@
       padding: 0.15rem 0.5rem;
       border-radius: 4px;
       border: 1.5px solid var(--border-dark);
-    }
-
-    /* ====== TAB SWITCHER ====== */
-    .tab-container {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
     }
 
     /* ====== KEY METRICS BAR ====== */
@@ -429,21 +421,18 @@
       background: white;
       border: 2px solid var(--border-dark);
       border-radius: 10px 4px 10px 4px/4px 10px 4px 10px;
-      padding: 0.4rem 1rem;
+      padding: 0.3rem 0.8rem;
       font-family: var(--font-hand);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 3px 3px 0px var(--border-dark);
+      box-shadow: 2px 2px 0px var(--border-dark);
       transition: all 0.1s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
     }
 
     .sketch-btn:active {
       transform: translate(1px, 1px);
-      box-shadow: 2px 2px 0px var(--border-dark);
+      box-shadow: 1px 1px 0px var(--border-dark);
     }
 
     .sketch-btn.active {
@@ -705,18 +694,6 @@
       display: inline-block;
       margin-bottom: 0.4rem;
     }
-
-    /* Visual Poster Card styling */
-    .poster-container {
-      background: white;
-      border: 3.5px solid var(--border-dark);
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 8px 8px 0px var(--border-dark);
-      display: inline-block;
-      max-width: 100%;
-      text-align: center;
-    }
   </style>
 </head>
 <body>
@@ -771,49 +748,31 @@
       </div>
     </header>
 
-    <!-- ====== TAB SWITCHER ====== -->
-    <div class="tab-container">
-      <button class="sketch-btn active" id="tab-interactive-btn" onclick="switchTab('interactive')">💻 Interactive Infographic</button>
-      <button class="sketch-btn" id="tab-poster-btn" onclick="switchTab('poster')">🖼️ Static Poster (PNG)</button>
-    </div>
-
-    <!-- ====== STATIC POSTER TAB ====== -->
-    <div id="poster-content" style="display:none; text-align:center; margin-bottom:3rem;">
-      <div style="margin-bottom:2rem;">
-        <a href="ml_pipeline_infographic.png" download class="sketch-btn" style="text-decoration:none; display:inline-flex; background-color:var(--color-yellow)">
-          <span>⬇️</span> Download High-Resolution Poster (PNG)
-        </a>
+    <!-- ====== KEY METRICS BAR ====== -->
+    <section class="metrics-bar">
+      <div class="metric-card blue">
+        <span class="metric-val">0.9474</span>
+        <span class="metric-label">Best Test R²</span>
+        <svg viewBox="0 0 24 24" class="metric-star sparkle" fill="var(--color-yellow)" stroke="var(--border-dark)" stroke-width="1.5">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
       </div>
-      <div class="poster-container">
-        <img src="ml_pipeline_infographic.png" alt="L6 Crisp-RD2 ML Pipeline Infographic Poster" style="max-width:100%; height:auto; border:1.5px solid var(--border-dark); border-radius:4px;" />
+      <div class="metric-card green">
+        <span class="metric-val">$8,198.80</span>
+        <span class="metric-label">Best Test RMSE</span>
       </div>
-    </div>
+      <div class="metric-card purple">
+        <span class="metric-val">2 Features</span>
+        <span class="metric-label">Optimal Subset</span>
+      </div>
+      <div class="metric-card orange">
+        <span class="metric-val">5 / 5</span>
+        <span class="metric-label">Algorithms Checked</span>
+      </div>
+    </section>
 
-    <!-- ====== INTERACTIVE INFOGRAPHIC TAB ====== -->
-    <div id="interactive-content">
-
-      <!-- KEY METRICS BAR -->
-      <section class="col-12 metrics-bar">
-        <div class="metric-card blue">
-          <span class="metric-val">0.9474</span>
-          <span class="metric-label">Best Test R²</span>
-          <svg viewBox="0 0 24 24" class="metric-star sparkle" fill="var(--color-yellow)" stroke="var(--border-dark)" stroke-width="1.5">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-          </svg>
-        </div>
-        <div class="metric-card green">
-          <span class="metric-val">$8,198.80</span>
-          <span class="metric-label">Best Test RMSE</span>
-        </div>
-        <div class="metric-card purple">
-          <span class="metric-val">2 Features</span>
-          <span class="metric-label">Optimal Subset</span>
-        </div>
-        <div class="metric-card orange">
-          <span class="metric-val">5 / 5</span>
-          <span class="metric-label">Algorithms Checked</span>
-        </div>
-      </section>
+    <!-- ====== GRID SYSTEM ====== -->
+    <main class="dashboard-grid">
 
       <!-- SECTION 1: PROJECT OVERVIEW (col-4) -->
       <div class="col-4">
@@ -1106,12 +1065,12 @@
                   <text x="235" y="215" font-family="var(--font-sans)" font-weight="600" fill="#4b5563">Number of Features</text>
                 </g>
 
-                <!-- Y Gridlines / Ticks -->
+                <!-- Y Gridlines / Ticks (Placeholder coordinates, details set dynamically) -->
                 <g font-size="11" text-anchor="end" id="y-labels">
                   <!-- Set dynamically by JS -->
                 </g>
 
-                <!-- Line paths -->
+                <!-- Line paths (Drawn dynamically via JS to allow smooth interactive rendering) -->
                 <path id="chart-path" class="chart-line" stroke-width="3.5" d="" />
                 
                 <!-- Data Points Group -->
@@ -1244,7 +1203,7 @@
         </div>
       </div>
 
-    </div>
+    </main>
 
     <!-- ====== FOOTER ====== -->
     <footer>
@@ -1405,20 +1364,6 @@
       if (currentMetric !== metric) {
         currentMetric = metric;
         renderChart(metric);
-      }
-    }
-
-    // Tab switcher function
-    function switchTab(tab) {
-      const isInteractive = (tab === 'interactive');
-      document.getElementById('interactive-content').style.display = isInteractive ? 'grid' : 'none';
-      document.getElementById('poster-content').style.display = isInteractive ? 'none' : 'block';
-      document.getElementById('tab-interactive-btn').classList.toggle('active', isInteractive);
-      document.getElementById('tab-poster-btn').classList.toggle('active', !isInteractive);
-      
-      // Re-trigger chart rendering if interactive is selected to ensure SVG lines animate properly
-      if (isInteractive) {
-        renderChart(currentMetric);
       }
     }
 
