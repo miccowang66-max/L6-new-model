@@ -232,21 +232,27 @@ X_scaled[num_features] = scaler.fit_transform(X[num_features])""", language="pyt
 
 # Interactive correlation heatmap
 st.subheader("📈 互動式特徵相關性分析 (Correlation Heatmap)")
-st.caption("**點擊**儲存格查看精確數值 · **hover** 顯示相關性 · 數值特徵 + Profit")
+st.caption("**Hover** 查看精確相關係數 · 紅 = 負相關 / 藍 = 正相關")
 
 corr_cols = ["R&D Spend", "Administration", "Marketing Spend", "Profit"]
 corr_matrix = df_raw[corr_cols].corr().round(4)
 
-fig_corr = px.imshow(
-    corr_matrix,
-    text_auto=".4f",
-    color_continuous_scale="RdBu_r",
+fig_corr = go.Figure(data=go.Heatmap(
+    z=corr_matrix.values,
+    x=corr_cols,
+    y=corr_cols,
+    text=corr_matrix.values,
+    texttemplate="%{text:.4f}",
+    textfont=dict(size=14),
+    colorscale="RdBu_r",
     zmin=-1, zmax=1,
-    title="Pearson 相關係數矩陣",
-)
+    hovertemplate="<b>%{x}</b> vs <b>%{y}</b><br>r = %{z:.4f}<extra></extra>",
+    colorbar=dict(title="r"),
+))
 fig_corr.update_layout(
+    title="Pearson 相關係數矩陣",
     xaxis=dict(side="top"),
-    coloraxis_colorbar=dict(title="r", tickprefix=" "),
+    width=500, height=450,
 )
 st.plotly_chart(fig_corr, use_container_width=True)
 
