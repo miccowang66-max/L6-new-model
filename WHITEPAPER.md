@@ -164,7 +164,9 @@ L6-new-model/
 ├── outcome_visualization.py           # 循序特徵新增圖表與 CSV/TSV 輸出
 ├── method_comparison_charts.py        # 5 方法比較儀表板（水平長條圖 + 熱力圖）
 ├── supplement_analysis.py             # 補充診斷：VIF、5-fold CV、Cook's D、斜率一致性
-├── index.html                         # GitHub Pages 靜態儀表板（Tailwind CSS）
+├── index.html                         # GitHub Pages 靜態儀表板（手繪 Excalidraw 風格）
+├── infographic.html                   # 手繪風資訊圖表（與 index.html 同步，含 Interactive / Static Poster 雙頁籤）
+├── ml_pipeline_infographic.png        # 靜態高解析度海報（PNG）
 ├── data/
 │   ├── raw/                           # [唯讀] 原始資料 — 絕對不可被程式修改或覆寫
 │   │   └── 50_startups.csv           # 50 間新創公司數據（5 欄位）
@@ -1112,20 +1114,20 @@ Streamlit 儀表板是本專案的旗艦部署形式，提供完整的互動式�
 
 - **URL**：`https://miccowang66-max.github.io/L6-new-model/`
 - **觸發**：推送至 `master` 分支時，GitHub Actions 自動觸發部署。
-- **技術**：純靜態 HTML + Tailwind CSS CDN + Inter / Roboto Mono 字型。
-- **內容**：包含 Hero 區塊（關鍵指標卡片）、相關性分析、五種特徵選取方法比較、循序特徵新增分析、特徵投票視覺化、精煉模型比較、全覽儀表板等 8 個區塊。
+- **技術**：純靜態 HTML + 手繪 Excalidraw 風格（純 CSS，無外部 UI 框架，使用 Google Fonts 手寫字體）。
+- **內容**：8 個資訊圖表區塊，包含 Hero 區塊（關鍵指標卡片）、專案概述、CRISP-DM 工作流程圖、核心建模結果、5 種特徵選取共識表、互動式循序特徵新增圖（可切換 R² / RMSE）、Streamlit 儀表板線框圖與技術棧、關鍵發現。
+- **雙頁籤切換**：頁面支援「💻 Interactive Infographic」與「🖼️ Static Poster (PNG)」雙頁籤。後者顯示 `ml_pipeline_infographic.png` 高解析度靜態海報並提供下載按鈕。
 
 | 區塊 | 內容 |
 |------|------|
-| **Hero** | 4 張指標卡（R² 0.9474、RMSE $8,199、5 方法、2 最佳特徵） |
-| **Correlation Analysis** | 熱力圖 + 散佈圖 + 箱型圖 + 洞察說明 |
-| **5 Feature Selection Methods** | 方法比較圖 + 熱力圖 + 特徵比較圖 |
-| **Method Comparison Results** | HTML 表格：5 方法完整績效（排名、特徵數、RMSE、Test R²、Adj. R²、CV R²） |
-| **Sequential Feature Addition** | 雙線圖 + HTML 表格：1→5 特徵數 RMSE/R² 變化 |
-| **Feature Votes** | 5 張視覺化卡片（進度條），每個特徵得票數（X/5） |
-| **Model Refinement** | 精煉模型比較圖 + 預測 vs 實際圖 + 殘差圖 |
-| **Complete Dashboard** | 4 合 1 全覽儀表板 |
-| **Conclusion** | 總結洞察 + 返回頂部 / GitHub 連結 |
+| **Hero / Header** | 4 張指標卡（R² 0.9474、RMSE $8,199、2 最佳特徵、5/5 演算法） + 作者/版本中繼資料 |
+| **1. Project Overview** | 專案背景、CRISP-DM 方法論簡介、工作區交付物列表 |
+| **5. CRISP-DM Workflow** | 6 步驟流程圖（Business Und. → Data Und. → Data Prep. → Modeling → Evaluation → Deployment） |
+| **2. Core Modeling Results** | HTML 表格：Model 1–4 的特徵組合、Test R²、Test RMSE，含最佳模型高亮 |
+| **3. Feature Selection Consensus** | HTML 投票矩陣表：5 方法對 5 特徵的排名，含共識洞察 |
+| **4. Sequential Feature Addition** | 互動式 SVG 圖（hover 顯示細節），可切換 Test R² / Test RMSE 曲線，含動畫繪製效果 |
+| **6 & 7. Dashboard & Tech Stack** | Streamlit 儀表板線框圖 + Python / scikit-learn / Plotly 等技術棧徽章 |
+| **8. Key Findings** | 三個核心戰略洞察（R&D 為王、行銷邊際價值、拒絕行政雜訊）+ 火箭插圖 |
 
 ### 9.3 CI/CD 管線
 
@@ -2108,6 +2110,7 @@ A15：是的，本專案使用 MIT 授權條款，這意味著：
 | 1.9 | 2026-06-11 | 白皮書大幅擴充（從 ~2,600 字擴增至 20,000+ 字）：每章節新增詳細的教學級內容，包括 CRISP-DM 六階段完整說明、EDA 指南、前處理最佳實踐、五種特徵選取方法的數學原理與程式碼、評估指標詳解、高斯-馬可夫假設檢驗、參考文獻 |
 | 2.0 | 2026-06-11 | 新增第 10–12 章：快速入門與實作教學（含環境設置、腳本執行流程、Streamlit 操作指南、自訂參數說明、常見問題解決方案）、商業解讀與決策指南（含核心商業洞察、投資決策框架、模型限制、利害關係人溝通要點）、FAQ 疑難排解（含方法論、資料、部署、擴展四大類共 12 題）|
 | 2.1 | 2026-06-11 | 第 5 章新增 Backward Elimination 逐輪實戰演練與方法選擇建議；第 8 章新增診斷失敗應對策略與 10 項全面檢核表；第 10 章新增 Docker 容器化部署、Jupyter Notebook 教學、輸出解讀指南、專案維護與跨領域應用指南；第 11 章新增三間虛構公司案例研究與五步驟決策流程；第 12 章新增 3 題 FAQ、方法論批判性反思與未來方向、學習資源與進階路徑；第 3 章新增相關係數深入解讀與視覺化最佳實踐 |
+| 2.2 | 2026-06-11 | 儀表板全面升級為手繪 Excalidraw 風格（`infographic.html` / `index.html`）：移除 Tailwind CSS 依賴改為純手繪 CSS、新增雙頁籤切換（Interactive Infographic / Static Poster PNG）、互動式 SVG SFA 圖（R²/RMSE 切換按鈕 + hover tooltip）、手繪 CRISP-DM 工作流程圖、線框 Streamlit 儀表板預覽、`ml_pipeline_infographic.png` 靜態海報；第 9 章部署架構同步更新 |
 
 ---
 
