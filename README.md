@@ -1,16 +1,17 @@
-#  L6 New Model — ML Regression Pipeline
+# L6 Crisp-RD2 — ML Regression Pipeline
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://github.com/miccowang66-max/L6-new-model/blob/master/LICENSE) [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square&logo=python)](https://www.python.org/downloads/) [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3+-orange?style=flat-square)](https://scikit-learn.org/) [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-7c3aed?style=flat-square&logo=github)](https://miccowang66-max.github.io/L6-new-model/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://github.com/miccowang66-max/L6-new-model/blob/master/LICENSE) [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square&logo=python)](https://www.python.org/downloads/) [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3+-orange?style=flat-square)](https://scikit-learn.org/) [![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B?style=flat-square&logo=streamlit)](https://streamlit.io/) [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-7c3aed?style=flat-square&logo=github)](https://miccowang66-max.github.io/L6-new-model/)
 
-> A production-ready Multiple Linear Regression pipeline with 5 feature selection methods, outlier handling, residual diagnostics, and comprehensive visualizations.  
-> **Python · scikit-learn · statsmodels · seaborn · One-Hot Encoding · Backward Elimination**
+> A production-ready Multiple Linear Regression pipeline with 5 feature selection methods, outlier handling, residual diagnostics, comprehensive visualizations, and an interactive Streamlit dashboard.
+> **Python · scikit-learn · statsmodels · seaborn · Plotly · Streamlit · One-Hot Encoding · Backward Elimination**
 
 ---
 
-## 🌐 Live Demo
+## 🌐 Live Demos
 
 | Platform | URL | Description |
 |----------|-----|-------------|
+| **Streamlit App** | `streamlit run app.py` | Interactive CRISP-DM dashboard with data exploration, modeling workflow, and SFA charts |
 | **GitHub Pages** | [miccowang66-max.github.io/L6-new-model](https://miccowang66-max.github.io/L6-new-model/) | Interactive dashboard with all figures and analysis |
 | **GitHub Repo** | [miccowang66-max/L6-new-model](https://github.com/miccowang66-max/L6-new-model) | Full source code, scripts, and reports |
 
@@ -20,30 +21,27 @@
 
 ### Analysis Pipeline
 
--  **Correlation Analysis** — Pearson heatmap, scatter plots, boxplots for EDA
--  **Consolidated Preprocessing** — One-Hot Encoding, dummy variable trap avoidance, StandardScaler
+- **Correlation Analysis** — Pearson heatmap, scatter plots, boxplots for EDA
+- **Consolidated Preprocessing** — One-Hot Encoding, dummy variable trap avoidance, StandardScaler
 - 📊 **5 Feature Selection Methods** — Backward Elimination, Forward Selection, RFE, Lasso L1, Mutual Information
 - 📈 **Sequential Feature Addition** — RMSE/R² tracking by feature count with optimal point detection
--  **Model Diagnostics** — Cook's Distance, residual normality (Omnibus), Durbin-Watson, VIF, 5-fold CV
+- **Model Diagnostics** — Cook's Distance, residual normality (Omnibus), Durbin-Watson, VIF, 5-fold CV
 
 ### Visualizations
 
 - 📉 **Method Comparison** — Horizontal bar charts for RMSE and R² across all 5 methods
 - 🔥 **Feature Selection Heatmap** — Vote matrix showing which methods selected which features
--  **Sequential Performance** — Line charts tracking RMSE/R² as features are added
+- **Sequential Performance** — Line charts tracking RMSE/R² as features are added
 - 🎯 **Combined Dashboard** — 4-in-one overview (RMSE, R², heatmap, summary table)
 - 📋 **Excel-Ready Tables** — CSV/TSV exports for all results
 
-### Sections
+### Streamlit App (app.py)
 
-| Section | Description |
-|---------|-------------|
-| **Data Display** | READ-ONLY exploration: shape, dtypes, describe, null counts, correlation heatmap |
-| **Data Preparation** | One-Hot Encoding → Dummy trap → StandardScaler → Train/Test Split (80/20) |
-| **Feature Selection** | 5 methods compared with voting system and importance ranking |
-| **Model Training** | OLS regression with statsmodels, coefficient extraction |
-| **Evaluation** | R², Adj.R², MAE, RMSE, residual plots, regression equation |
-| **Refinement** | Outlier removal, Box-Cox transform, Huber Robust Regression |
+- 📊 **CRISP-DM Dashboard** — 4-chapter interactive web app
+- 📋 **Data Discovery** — Raw data explorer with statistical summaries and KPI cards
+- ⚙️ **Modeling Workflow** — Step-by-step pipeline visualization (Cleaning → Encoding → Split → Modeling)
+- 🔬 **Feature Selection Analysis** — Interactive SFA table with dual Plotly line charts (RMSE & R²)
+- 🏆 **Optimal Model Detection** — Auto-highlighted elbow point with insight block
 
 ### Key Findings
 
@@ -55,7 +53,7 @@
 | Administration | 1/5 | Noise |
 | State_New York | 1/5 | Noise |
 
-**Optimal Model**: 2 features [R&D Spend, Marketing Spend]  
+**Optimal Model**: 2 features [R&D Spend, Marketing Spend]
 **Test R²**: 0.9474 | **RMSE**: $8,198.80
 
 ---
@@ -84,6 +82,9 @@ python outcome_visualization.py
 
 # Generate method comparison charts
 python method_comparison_charts.py
+
+# Launch interactive Streamlit dashboard
+streamlit run app.py
 ```
 
 ---
@@ -92,24 +93,25 @@ python method_comparison_charts.py
 
 ```
 L6-new-model/
-├── design.md                          # Architecture & pipeline specification
-├── requirements.txt                   # Python dependencies
-├── main_analysis.py                   # Full ML pipeline (correlation → eval)
-├── feature_selection.py               # 5-method feature selection comparison
-├── refined_models.py                  # Outlier removal + Box-Cox + Huber
-├── outcome_visualization.py           # Sequential feature addition charts
-├── method_comparison_charts.py        # 5-method comparison dashboard
-├── supplement_analysis.py             # VIF, CV, Cook's D diagnostics
+├── README.md                           # Project documentation
+├── requirements.txt                    # Python dependencies
+├── app.py                              # Streamlit interactive dashboard
+├── main_analysis.py                    # Full ML pipeline (correlation → eval)
+├── feature_selection.py                # 5-method feature selection comparison
+├── refined_models.py                   # Outlier removal + Box-Cox + Huber
+├── outcome_visualization.py            # Sequential feature addition charts
+├── method_comparison_charts.py         # 5-method comparison dashboard
+├── supplement_analysis.py              # VIF, CV, Cook's D diagnostics
 ├── data/
 │   ├── raw/
-│   │   └── 50_startups.csv           # READ-ONLY source data
-│   ── processed/
+│   │   └── 50_startups.csv            # READ-ONLY source data
+│   └── processed/
 │       ├── X_train.csv
 │       ├── X_test.csv
 │       ├── y_train.csv
 │       └── y_test.csv
-── outputs/
-│   ├── figures/                       # 11 PNG charts
+├── outputs/
+│   ├── figures/                        # 11 PNG charts
 │   │   ├── corr_heatmap.png
 │   │   ├── scatter_features.png
 │   │   ├── boxplot_state.png
@@ -121,14 +123,14 @@ L6-new-model/
 │   │   ├── method_comparison_heatmap_performance.png
 │   │   ├── method_comparison_dashboard.png
 │   │   └── model_comparison.png
-│   └── reports/                       # 6 text/CSV reports
+│   └── reports/                        # 6 text/CSV reports
 │       ├── metrics.txt
 │       ├── refined_models.txt
 │       ├── feature_selection.txt
 │       ├── feature_selection_results.csv
 │       ├── feature_selection_results.tsv
 │       └── method_comparison_results.csv
-└── .opencode/skills/                  # Reusable ML skills
+└── .opencode/skills/                   # Reusable ML skills
     ├── ml-regression-pipeline/
     │   └── SKILL.md
     └── skill-creator/
@@ -136,7 +138,7 @@ L6-new-model/
         ├── agents/
         ├── scripts/
         ├── eval-viewer/
-        ── assets/
+        └── assets/
 ```
 
 ---
@@ -153,10 +155,12 @@ L6-new-model/
 | [matplotlib](https://matplotlib.org/) | Static visualizations |
 | [seaborn](https://seaborn.pydata.org/) | Statistical visualizations |
 | [scipy](https://scipy.org/) | Box-Cox transform, statistical tests |
+| [Streamlit](https://streamlit.io/) | Interactive web dashboard |
+| [Plotly](https://plotly.com/) | Interactive charts (hover, zoom, pan) |
 
 ---
 
-##  Results Summary
+## 📊 Results Summary
 
 ### 5 Feature Selection Methods Comparison
 
@@ -191,6 +195,7 @@ L6-new-model/
 | **Feature selection methods** | Add/remove methods in `feature_selection.py` |
 | **Visualizations** | Modify matplotlib/seaborn parameters in chart scripts |
 | **Report format** | Edit CSV/TSV output in `outcome_visualization.py` |
+| **Streamlit dashboard** | Modify `app.py` for custom UI, data, or charts |
 
 ---
 
