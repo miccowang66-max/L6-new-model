@@ -5,7 +5,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 st.set_page_config(
-    page_title="L6 Crisp-RD2 — ML Regression Pipeline",
+    page_title="企業機器學習迴歸分析端到端指南 — ML Regression Pipeline",
     page_icon="🔬",
     layout="wide",
 )
@@ -150,7 +150,7 @@ df_mi = pd.DataFrame(MI_DATA)
 # ═══════════════════════════════════════════════════════════════════════
 # Page Header
 # ═══════════════════════════════════════════════════════════════════════
-st.title("🔬 L6 Crisp-RD2 — ML Regression Pipeline")
+st.title("🔬 企業機器學習迴歸分析端到端指南 — ML Regression Pipeline")
 st.caption("Production-Ready Multiple Linear Regression · 50 Startups Dataset · CRISP-DM Standard")
 
 c1, c2, c3, c4 = st.columns(4)
