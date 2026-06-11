@@ -283,107 +283,88 @@ st.dataframe(
     hide_index=True,
 )
 
-# ── 4.2 Interactive Dual Line Charts ──────────────────────────────────
-st.subheader("Performance Trends — RMSE & R² vs Feature Count")
+# ── 4.2 Interactive Toggle SFA Chart ──────────────────────────────────
+st.subheader("Performance Trends — Toggle RMSE & R²")
 st.caption(
-    "💡 **Hover** over any data point to see the exact feature combination and metric value."
+    "💡 **Click the buttons below** to switch between RMSE and R². **Hover** over any data point "
+    "to see the exact feature combination and metric value."
 )
 
-col_left, col_right = st.columns(2)
+metric_toggle = st.radio(
+    "Select Metric",
+    options=["Test R² (Higher is Better)", "Test RMSE (Lower is Better)"],
+    horizontal=True,
+    label_visibility="collapsed",
+)
 
-# ── Left: RMSE ────────────────────────────────────────────────────────
-with col_left:
-    fig_rmse = px.line(
-        df_sfa,
-        x="Number of Features",
-        y="RMSE",
-        markers=True,
-        title="RMSE by Number of Features",
-        labels={"Number of Features": "Number of Features", "RMSE": "RMSE ($)"},
-        custom_data=["Selected Features"],
-    )
-    fig_rmse.update_traces(
-        line=dict(color="#1f77b4", width=3),
-        marker=dict(size=12, color="#1f77b4", line=dict(width=1, color="white")),
+if "R²" in metric_toggle:
+    y_col = "R-squared"
+    y_label = "R²"
+    y_fmt = ".4f"
+    line_color = "#10b981"
+    best_y = BEST_R2
+    best_text_pos = "bottom center"
+    best_label = "(HIGHEST)"
+    y_range = [0.92, 0.96]
+    _title = "R-squared by Number of Features"
+else:
+    y_col = "RMSE"
+    y_label = "RMSE ($)"
+    y_fmt = ",.2f"
+    line_color = "#f97316"
+    best_y = BEST_RMSE
+    best_text_pos = "top center"
+    best_label = "(LOWEST)"
+    y_range = None
+    _title = "RMSE by Number of Features"
+
+fig_toggle = px.line(
+    df_sfa,
+    x="Number of Features",
+    y=y_col,
+    markers=True,
+    title=_title,
+    labels={"Number of Features": "Number of Features", y_col: y_label},
+    custom_data=["Selected Features"],
+)
+fig_toggle.update_traces(
+    line=dict(color=line_color, width=3),
+    marker=dict(size=14, color=line_color, line=dict(width=1, color="white")),
+    hovertemplate=(
+        "<b>Features</b>: %{customdata[0]}<br>"
+        "<b>Feature Count</b>: %{x}<br>"
+        f"<b>{y_label}</b>: %{{y:{y_fmt}}}<extra></extra>"
+    ),
+)
+# Star marker for optimal point
+fig_toggle.add_trace(
+    go.Scatter(
+        x=[BEST_N],
+        y=[best_y],
+        mode="markers+text",
+        name="Optimal",
+        marker=dict(size=20, color="#facc15", symbol="star", line=dict(width=2, color="#1e1e1e")),
+        text=["▼ BEST"],
+        textposition=best_text_pos,
+        textfont=dict(size=12, color="#1e1e1e", family="Arial Black"),
         hovertemplate=(
             "<b>Features</b>: %{customdata[0]}<br>"
             "<b>Feature Count</b>: %{x}<br>"
-            "<b>RMSE</b>: $%{y:,.2f}<extra></extra>"
+            f"<b>{y_label}</b>: %{{y:{y_fmt}}} " + best_label + "<extra></extra>"
         ),
+        customdata=[[BEST_FEATURES]],
     )
-    # Star marker for best point
-    fig_rmse.add_trace(
-        go.Scatter(
-            x=[BEST_N],
-            y=[BEST_RMSE],
-            mode="markers+text",
-            name="Optimal (Lowest RMSE)",
-            marker=dict(size=18, color="#d62728", symbol="star", line=dict(width=1, color="darkred")),
-            text=["▼ BEST"],
-            textposition="top center",
-            textfont=dict(size=11, color="#d62728", family="Arial Black"),
-            hovertemplate=(
-                "<b>Features</b>: %{customdata[0]}<br>"
-                "<b>Feature Count</b>: %{x}<br>"
-                "<b>RMSE</b>: $%{y:,.2f} (LOWEST)<extra></extra>"
-            ),
-            customdata=[[BEST_FEATURES]],
-        )
-    )
-    fig_rmse.update_layout(
-        xaxis=dict(tickmode="linear", tick0=1, dtick=1, title="Number of Features"),
-        yaxis=dict(rangemode="tozero", title="RMSE ($)"),
-        showlegend=False,
-        hovermode="closest",
-    )
-    st.plotly_chart(fig_rmse, use_container_width=True)
+)
+fig_toggle.update_layout(
+    xaxis=dict(tickmode="linear", tick0=1, dtick=1, title="Number of Features"),
+    yaxis=dict(title=y_label),
+    showlegend=False,
+    hovermode="closest",
+)
+if y_range:
+    fig_toggle.update_layout(yaxis=dict(range=y_range, title=y_label))
 
-# ── Right: R² ─────────────────────────────────────────────────────────
-with col_right:
-    fig_r2 = px.line(
-        df_sfa,
-        x="Number of Features",
-        y="R-squared",
-        markers=True,
-        title="R-squared by Number of Features",
-        labels={"Number of Features": "Number of Features", "R-squared": "R²"},
-        custom_data=["Selected Features"],
-    )
-    fig_r2.update_traces(
-        line=dict(color="#2ca02c", width=3),
-        marker=dict(size=12, color="#2ca02c", line=dict(width=1, color="white")),
-        hovertemplate=(
-            "<b>Features</b>: %{customdata[0]}<br>"
-            "<b>Feature Count</b>: %{x}<br>"
-            "<b>R²</b>: %{y:.4f}<extra></extra>"
-        ),
-    )
-    # Star marker for best point
-    fig_r2.add_trace(
-        go.Scatter(
-            x=[BEST_N],
-            y=[BEST_R2],
-            mode="markers+text",
-            name="Optimal (Highest R²)",
-            marker=dict(size=18, color="#d62728", symbol="star", line=dict(width=1, color="darkred")),
-            text=["▼ BEST"],
-            textposition="bottom center",
-            textfont=dict(size=11, color="#d62728", family="Arial Black"),
-            hovertemplate=(
-                "<b>Features</b>: %{customdata[0]}<br>"
-                "<b>Feature Count</b>: %{x}<br>"
-                "<b>R²</b>: %{y:.4f} (HIGHEST)<extra></extra>"
-            ),
-            customdata=[[BEST_FEATURES]],
-        )
-    )
-    fig_r2.update_layout(
-        xaxis=dict(tickmode="linear", tick0=1, dtick=1, title="Number of Features"),
-        yaxis=dict(range=[0.92, 0.96], title="R-squared"),
-        showlegend=False,
-        hovermode="closest",
-    )
-    st.plotly_chart(fig_r2, use_container_width=True)
+st.plotly_chart(fig_toggle, use_container_width=True)
 
 # ── 4.3 Insight Block ─────────────────────────────────────────────────
 st.divider()
