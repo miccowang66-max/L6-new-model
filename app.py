@@ -644,22 +644,6 @@ st.divider()
 # ═══════════════════════════════════════════════════════════════════════
 st.header("五、關鍵發現與實驗結果 (以 50_Startups 為例)")
 
-# Key metrics ribbon
-st.subheader("🏆 最佳模型績效")
-m1, m2, m3, m4, m5 = st.columns(5)
-with m1:
-    st.metric("Test R²", f"{BEST_R2:.4f}", delta="94.74% 解釋力")
-with m2:
-    st.metric("Test RMSE", f"${BEST_RMSE:,.2f}", delta="預測誤差範圍")
-with m3:
-    st.metric("最佳特徵數", str(BEST_N), delta="R&D + Marketing")
-with m4:
-    st.metric("特徵選擇方法", "5 種", delta="全票共識: R&D")
-with m5:
-    st.metric("測試樣本", "10 筆", delta="80/20 分割")
-
-st.divider()
-
 # Core insights
 st.subheader("💡 核心洞察")
 ins1, ins2, ins3 = st.columns(3)
@@ -687,6 +671,22 @@ with ins3:
     <p>Administration、State 變數與利潤無顯著關聯。加入後 RMSE 從 <b>$8,199 升至 $9,138</b>，R² 從 0.9474 降至 0.9347 —— 典型 <b>過度擬合</b>。</p>
     </div>
     """, unsafe_allow_html=True)
+
+st.divider()
+
+# Key metrics ribbon
+st.subheader("🏆 最佳模型績效")
+m1, m2, m3, m4, m5 = st.columns(5)
+with m1:
+    st.metric("Test R²", f"{BEST_R2:.4f}", delta="94.74% 解釋力")
+with m2:
+    st.metric("Test RMSE", f"${BEST_RMSE:,.2f}", delta="預測誤差範圍")
+with m3:
+    st.metric("最佳特徵數", str(BEST_N), delta="R&D + Marketing")
+with m4:
+    st.metric("特徵選擇方法", "5 種", delta="全票共識: R&D")
+with m5:
+    st.metric("測試樣本", "10 筆", delta="80/20 分割")
 
 # Feature importance summary chart
 st.subheader("特徵重要性總結")
