@@ -206,21 +206,6 @@ with m5:
 st.subheader("特徵選擇共識表")
 st.dataframe(df_fs, use_container_width=True, hide_index=True)
 
-# Vote summary
-st.subheader("特徵得票統計")
-votes = {"R&D Spend": 5, "Marketing Spend": 3, "State_Florida": 2, "Administration": 1, "State_New York": 1}
-fig_votes = px.bar(
-    x=list(votes.keys()), y=list(votes.values()),
-    title="各特徵在 5 種方法中的得票數",
-    labels={"x": "特徵", "y": "得票數 (最多 5)"},
-    color=list(votes.values()),
-    color_continuous_scale=["#e5e7eb", "#10b981"],
-    text=list(votes.values()),
-)
-fig_votes.update_traces(texttemplate="%{text}/5", textposition="outside")
-fig_votes.update_layout(yaxis=dict(range=[0, 6], dtick=1), coloraxis_showscale=False)
-st.plotly_chart(fig_votes, use_container_width=True)
-
 st.divider()
 
 # ═══════════════════════════════════════════════════════════════════════
