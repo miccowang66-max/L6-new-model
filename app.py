@@ -644,32 +644,49 @@ st.divider()
 # ═══════════════════════════════════════════════════════════════════════
 st.header("五、關鍵發現與實驗結果 (以 50_Startups 為例)")
 
-col_f1, col_f2 = st.columns([1, 1])
-with col_f1:
-    st.markdown(f"""
-    ### 🏆 最佳模型
+# Key metrics ribbon
+st.subheader("🏆 最佳模型績效")
+m1, m2, m3, m4, m5 = st.columns(5)
+with m1:
+    st.metric("Test R²", f"{BEST_R2:.4f}", delta="94.74% 解釋力")
+with m2:
+    st.metric("Test RMSE", f"${BEST_RMSE:,.2f}", delta="預測誤差範圍")
+with m3:
+    st.metric("最佳特徵數", str(BEST_N), delta="R&D + Marketing")
+with m4:
+    st.metric("特徵選擇方法", "5 種", delta="全票共識: R&D")
+with m5:
+    st.metric("測試樣本", "10 筆", delta="80/20 分割")
 
-    | 指標 | 數值 |
-    |------|------|
-    | **選取特徵** | {BEST_FEATURES} |
-    | **特徵數** | {BEST_N} |
-    | **Test R²** | **{BEST_R2:.4f}** |
-    | **Test RMSE** | **\${BEST_RMSE:,.2f}** |
-    """)
+st.divider()
 
-with col_f2:
-    st.success(f"""
-    ### 💡 核心洞察
+# Core insights
+st.subheader("💡 核心洞察")
+ins1, ins2, ins3 = st.columns(3)
 
-    **研發支出 (R&D Spend)** 在所有 5 種特徵選擇方法中均獲得全票
-    **（5/5）**，是獲利的最強預測指標。
+with ins1:
+    st.markdown("""
+    <div style="background:#f0fdf4; border-left:4px solid #10b981; padding:1rem; border-radius:4px; height:100%">
+    <h4>🔬 R&D 為獲利之王</h4>
+    <p>R&D Spend 在全部 5 種特徵選擇方法中獲得 <b>全票（5/5）</b>，是預測新創公司獲利的最強指標，單一特徵即可解釋 <b>94.65%</b> 的利潤變異。</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    最佳模型組合為 **R&D Spend + Marketing Spend**，
-    僅 2 個特徵即達到最高 R² 與最低 RMSE。
-    繼續加入 Administration 或 State 變數反而導致
-    **過度擬合（overfitting）**，使 RMSE 上升至
-    \$9,137.99。
-    """)
+with ins2:
+    st.markdown("""
+    <div style="background:#eff6ff; border-left:4px solid #3b82f6; padding:1rem; border-radius:4px; height:100%">
+    <h4>📣 行銷為輔助槓桿</h4>
+    <p>Marketing Spend 提供邊際改善（RMSE 降低 <b>$76</b>），但僅在與 R&D 搭配時有效。獨立使用無統計顯著性，定位為 <b>次要優化手段</b>。</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with ins3:
+    st.markdown("""
+    <div style="background:#fef2f2; border-left:4px solid #ef4444; padding:1rem; border-radius:4px; height:100%">
+    <h4>🚫 拒絕雜訊變數</h4>
+    <p>Administration、State 變數與利潤無顯著關聯。加入後 RMSE 從 <b>$8,199 升至 $9,138</b>，R² 從 0.9474 降至 0.9347 —— 典型 <b>過度擬合</b>。</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # Feature importance summary chart
 st.subheader("特徵重要性總結")
