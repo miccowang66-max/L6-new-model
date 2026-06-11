@@ -11,7 +11,7 @@
 
 | Platform | URL | Description |
 |----------|-----|-------------|
-| **Streamlit App** | [l6-new-model.streamlit.app](https://l6-new-model.streamlit.app/) | Interactive CRISP-DM dashboard with data exploration, modeling workflow, and SFA charts |
+| **Streamlit App** | [l6-new-model.streamlit.app](https://l6-new-model.streamlit.app/) | 5-section interactive dashboard (overview, preprocessing, 5 FS methods, diagnostics + elbow point, findings + predicted vs actual + business guidance) |
 | **Infographic (GitHub Pages)** | [miccowang66-max.github.io/L6-new-model](https://miccowang66-max.github.io/L6-new-model/) | Hand-drawn Excalidraw-style infographic with interactive SFA chart, 8 sections, tab switcher (Interactive / Static PNG Poster) |
 | **Technical Whitepaper** | [WHITEPAPER.md](./WHITEPAPER.md) | 14-chapter tutorial-grade document (quick start, business guide, FAQ, diagnostics) |
 | **GitHub Repo** | [miccowang66-max/L6-new-model](https://github.com/miccowang66-max/L6-new-model) | Full source code, scripts, and reports |
@@ -38,11 +38,15 @@
 
 ### Streamlit App (app.py)
 
-- 📊 **CRISP-DM Dashboard** — 4-chapter interactive web app
-- 📋 **Data Discovery** — Raw data explorer with statistical summaries and KPI cards
-- ⚙️ **Modeling Workflow** — Step-by-step pipeline visualization (Cleaning → Encoding → Split → Modeling)
-- 🔬 **Feature Selection Analysis** — Interactive SFA table with dual Plotly line charts (RMSE & R²)
-- 🏆 **Optimal Model Detection** — Auto-highlighted elbow point with insight block
+- 🔬 **5-Section Layout** — 專案概述 → 資料預處理 → 五大特徵選取 → 模型優化與診斷 → 結論
+- 📈 **Interactive Correlation Heatmap** — Plotly go.Heatmap with hover tooltips
+- 🔙 **Backward Elimination α Slider** — Drag α (0~1) to see green/red feature retention bars
+- 🎯 **Lasso Path α Slider** — select_slider with vertical crosshair + live coefficient readout
+- 📊 **Per-Method Charts** — BE P-value bars, FS R²/Adj.R² steps, RFE ranking, Lasso coefficient path, MI scores
+- 🔄 **SFA Toggle Chart** — Switch between R² / RMSE line charts with star marker at optimal point
+- 📈 **Elbow Point Analysis** — Dual-metric chart with overfitting zone highlight
+- 🎯 **Predicted vs Actual** — Scatter plot with OLS trendline + perfect prediction line (y=x)
+- 💡 **Business Decision Guidance** — Budget allocation, investment DD, performance benchmarking cards
 
 ### Key Findings
 
