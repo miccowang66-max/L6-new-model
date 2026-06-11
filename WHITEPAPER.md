@@ -4,8 +4,8 @@
 
 ---
 
-**版本**：1.0  
-**日期**：2026-06-09  
+**版本**：1.8  
+**日期**：2026-06-11  
 **作者**：miccowang66-max  
 **授權**：MIT License  
 
@@ -55,6 +55,8 @@
 | 統計建模 | statsmodels | ≥ 0.14 |
 | 機器學習 | scikit-learn | ≥ 1.3 |
 | 視覺化 | matplotlib, seaborn | ≥ 3.7 / ≥ 0.12 |
+| 互動式儀表板 | Streamlit | ≥ 1.55 |
+| 互動式圖表 | Plotly | ≥ 5.18 |
 | 科學計算 | scipy | ≥ 1.10 |
 
 ---
@@ -75,8 +77,11 @@
 
 ```
 L6-new-model/
+├── README.md                          # 專案說明文件
+├── WHITEPAPER.md                      # 技術規格白皮書（本文件）
 ├── design.md                          # 架構設計文件（單一事實來源）
 ├── requirements.txt                   # Python 相依套件
+├── app.py                             # Streamlit 互動式 CRISP-DM 儀表板
 ├── main_analysis.py                   # Stage 1-4 完整管線
 ├── feature_selection.py               # 5 種特徵選取方法比較
 ├── refined_models.py                  # 離群值移除 + Box-Cox + Huber
@@ -382,7 +387,25 @@ Profit = 56,713.92 + 0.7649 × R&D_Spend + 0.0287 × Marketing_Spend
 
 ## 9. 部署架構
 
-### 9.1 GitHub Pages 儀表板
+### 9.1 Streamlit Cloud 互動式儀表板
+
+- **URL**：[l6-new-model.streamlit.app](https://l6-new-model.streamlit.app/)
+- **技術**：Streamlit + Plotly Express + Pandas
+- **原始碼**：`app.py`
+- **部署方式**：Streamlit Cloud 自動偵測 GitHub 倉庫，從 `app.py` 啟動
+- **功能**：
+
+| 章節 | 內容 | 互動元件 |
+|------|------|---------|
+| **Project Overview** | 專案使命、數據規模摘要 | `st.info` + `st.metric` |
+| **Data Discovery** | 原始數據統計摘要、50 筆完整資料 | `st.checkbox` 展開/隱藏、`st.columns(3)` KPI 卡 |
+| **CRISP-DM Workflow** | 4 步驟管線（清洗→編碼→分割→建模） | `st.tabs` 四頁籤，含程式碼區塊 |
+| **Feature Selection Analysis** | SFA 結果表格 + 雙線聯動圖 + 結論 | `st.dataframe`、`st.columns(2)` Plotly 圖、hover 顯示特徵組合、`st.success` 最佳模型洞察 |
+
+- **資料內嵌**：所有數據（50 筆原始資料 + SFA 分析結果）均 Hardcode 於 `app.py`，無需外部檔案即可執行
+- **圖表互動性**：使用 Plotly Express 繪製雙線圖，hover 時顯示具體特徵組合與指標數值，並以星號標記最佳模型點（Elbow Point）
+
+### 9.2 GitHub Pages 靜態儀表板
 
 - **觸發**：推送至 `master` 分支
 - **建置**：GitHub Actions 自動部署靜態檔案
@@ -403,7 +426,7 @@ Profit = 56,713.92 + 0.7649 × R&D_Spend + 0.0287 × Marketing_Spend
 | **Complete Dashboard** | 4 合 1 全覽儀表板 |
 | **Conclusion** | 總結洞察 + 返回頂部 / GitHub 連結 |
 
-### 9.2 CI/CD 管線
+### 9.3 CI/CD 管線
 
 ```yaml
 觸發條件：push to master
@@ -413,7 +436,7 @@ Profit = 56,713.92 + 0.7649 × R&D_Spend + 0.0287 × Marketing_Spend
 └── deploy-pages（部署至 GitHub Pages CDN）
 ```
 
-### 9.3 Agent Skill 發佈
+### 9.4 Agent Skill 發佈
 
 管線已封裝為 OpenCode Skill：
 - 路徑：`.opencode/skills/ml-regression-pipeline/SKILL.md`
@@ -478,7 +501,8 @@ Profit = 56,713.92 + 0.7649 × R&D_Spend + 0.0287 × Marketing_Spend
 | 1.5 | 2026-06-09 | 儀表板新增：Method Comparison Results 表格、Sequential Addition 表格、Feature Votes 卡片 |
 | 1.6 | 2026-06-09 | 封裝 `ml-regression-pipeline` OpenCode Skill（16 步驟完整工作流程） |
 | 1.7 | 2026-06-09 | 白皮書更新：第 9 章部署架構擴充儀表板區塊詳情、第 11 章新增變更日誌 |
+| 1.8 | 2026-06-11 | 加入 `app.py` Streamlit CRISP-DM 互動式儀表板（4 章節、雙線聯動圖、hover 特徵組合）；技術棧新增 Streamlit 與 Plotly；部署架構新增 Streamlit Cloud 部署（[l6-new-model.streamlit.app](https://l6-new-model.streamlit.app/)）；README 與 requirements.txt 同步更新 |
 
 ---
 
-> **文件目的**：本白皮書作為 L6 Crisp-RD2 專案的技術規格文件，詳載了系統架構、方法論、實驗結果與部署細節。任何對專案的修改應先參照本文，確保一致性與可重現性。
+> **文件目的**：本白皮書作為 L6 Crisp-RD2 專案的技術規格文件，詳載了系統架構、方法論、實驗結果、部署細節（含 Streamlit Cloud 與 GitHub Pages 雙部署）。任何對專案的修改應先參照本文，確保一致性與可重現性。
