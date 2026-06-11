@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://github.com/miccowang66-max/L6-new-model/blob/master/LICENSE) [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square&logo=python)](https://www.python.org/downloads/) [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3+-orange?style=flat-square)](https://scikit-learn.org/) [![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B?style=flat-square&logo=streamlit)](https://streamlit.io/) [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-7c3aed?style=flat-square&logo=github)](https://miccowang66-max.github.io/L6-new-model/)
 
-> A production-ready Multiple Linear Regression pipeline with 5 feature selection methods, outlier handling, residual diagnostics, comprehensive visualizations, and an interactive Streamlit dashboard.
+> A production-ready Multiple Linear Regression pipeline with 5 feature selection methods, outlier handling, residual diagnostics, comprehensive visualizations, an interactive Streamlit dashboard, and a 14-chapter technical whitepaper.
 > **Python · scikit-learn · statsmodels · seaborn · Plotly · Streamlit · One-Hot Encoding · Backward Elimination**
 
 ---
@@ -12,7 +12,8 @@
 | Platform | URL | Description |
 |----------|-----|-------------|
 | **Streamlit App** | [l6-new-model.streamlit.app](https://l6-new-model.streamlit.app/) | Interactive CRISP-DM dashboard with data exploration, modeling workflow, and SFA charts |
-| **GitHub Pages** | [miccowang66-max.github.io/L6-new-model](https://miccowang66-max.github.io/L6-new-model/) | Interactive dashboard with all figures and analysis |
+| **GitHub Pages** | [miccowang66-max.github.io/L6-new-model](https://miccowang66-max.github.io/L6-new-model/) | Static dashboard with all figures, tables, and analysis |
+| **Technical Whitepaper** | [WHITEPAPER.md](./WHITEPAPER.md) | 14-chapter tutorial-grade document (quick start, business guide, FAQ, diagnostics) |
 | **GitHub Repo** | [miccowang66-max/L6-new-model](https://github.com/miccowang66-max/L6-new-model) | Full source code, scripts, and reports |
 
 ---
@@ -94,6 +95,7 @@ streamlit run app.py
 ```
 L6-new-model/
 ├── README.md                           # Project documentation
+├── WHITEPAPER.md                       # 14-chapter technical whitepaper (tutorial)
 ├── requirements.txt                    # Python dependencies
 ├── app.py                              # Streamlit interactive dashboard
 ├── main_analysis.py                    # Full ML pipeline (correlation → eval)
