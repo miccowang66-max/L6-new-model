@@ -230,6 +230,26 @@ with tab3:
 scaler = StandardScaler()
 X_scaled[num_features] = scaler.fit_transform(X[num_features])""", language="python")
 
+# Interactive correlation heatmap
+st.subheader("📈 互動式特徵相關性分析 (Correlation Heatmap)")
+st.caption("**點擊**儲存格查看精確數值 · **hover** 顯示相關性 · 數值特徵 + Profit")
+
+corr_cols = ["R&D Spend", "Administration", "Marketing Spend", "Profit"]
+corr_matrix = df_raw[corr_cols].corr().round(4)
+
+fig_corr = px.imshow(
+    corr_matrix,
+    text_auto=".4f",
+    color_continuous_scale="RdBu_r",
+    zmin=-1, zmax=1,
+    title="Pearson 相關係數矩陣",
+)
+fig_corr.update_layout(
+    xaxis=dict(side="top"),
+    coloraxis_colorbar=dict(title="r", tickprefix=" "),
+)
+st.plotly_chart(fig_corr, use_container_width=True)
+
 st.divider()
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -249,24 +269,65 @@ st.subheader("各方法詳細分析")
 with st.expander("🔙 後向淘汰 (Backward Elimination) — 基於 P 值，逐一移除不顯著特徵", expanded=False):
     st.markdown("""
     從包含所有特徵的全模型開始，每輪移除 P 值最高（最不顯著）的特徵，
-    直到所有剩餘特徵的 P 值均低於顯著水準 α = 0.05。
+    直到所有剩餘特徵的 P 值均低於顯著水準 α。
     
     **淘汰歷程**：State_New York (P=0.990) → Administration (P=0.602) → State_Florida (P=0.471)
     """)
+
+    # Alpha slider
+    alpha = st.slider(
+        "顯著水準 α（拖曳調整門檻）",
+        min_value=0.01, max_value=0.10, value=0.05, step=0.01,
+        key="be_alpha",
+    )
+
+    # Final P-values per feature (at elimination round or final)
+    be_final_p = {
+        "R&D Spend": 0.000,
+        "Marketing Spend": 0.013,
+        "State_Florida": 0.471,
+        "Administration": 0.512,
+        "State_New York": 0.990,
+    }
+    df_be_final = pd.DataFrame(
+        {"特徵": list(be_final_p.keys()), "P-value": list(be_final_p.values())}
+    )
+    df_be_final["判定"] = df_be_final["P-value"].apply(
+        lambda p: "✓ 保留" if p < alpha else "✗ 剔除"
+    )
+    df_be_final["顏色"] = df_be_final["P-value"].apply(
+        lambda p: "#10b981" if p < alpha else "#ef4444"
+    )
+
     col_be1, col_be2 = st.columns([3, 2])
     with col_be1:
-        fig_be = px.bar(
-            df_be.melt(id_vars="特徵", var_name="淘汰輪次", value_name="P-value").dropna(),
-            x="特徵", y="P-value", color="淘汰輪次", barmode="group",
-            title="Backward Elimination — 各輪 P 值變化",
-            labels={"P-value": "P-value (愈低愈顯著)"},
-            color_discrete_sequence=["#ef4444", "#f97316", "#facc15", "#10b981"],
+        fig_be_dyn = go.Figure(data=[
+            go.Bar(
+                x=df_be_final["特徵"],
+                y=df_be_final["P-value"],
+                marker_color=df_be_final["顏色"],
+                text=df_be_final["判定"],
+                textposition="outside",
+                hovertemplate="<b>%{x}</b><br>P-value: %{y:.3f}<br>判定: %{text}<extra></extra>",
+            )
+        ])
+        fig_be_dyn.add_hline(
+            y=alpha, line_dash="dash", line_color="#1e1e1e",
+            annotation_text=f"α = {alpha:.2f}", annotation_position="top right",
         )
-        fig_be.add_hline(y=0.05, line_dash="dash", line_color="red", annotation_text="α = 0.05")
-        fig_be.update_layout(yaxis=dict(range=[0, 1.05]))
-        st.plotly_chart(fig_be, use_container_width=True)
+        fig_be_dyn.update_layout(
+            title=f"Backward Elimination — 最終 P 值 vs α = {alpha:.2f}",
+            yaxis=dict(title="P-value", range=[0, 1.1]),
+            showlegend=False,
+        )
+        st.plotly_chart(fig_be_dyn, use_container_width=True)
     with col_be2:
-        st.success("**最終選取**：R&D Spend + Marketing Spend\n\nP 值均 < 0.05，具統計顯著性")
+        kept = df_be_final[df_be_final["P-value"] < alpha]["特徵"].tolist()
+        removed = df_be_final[df_be_final["P-value"] >= alpha]["特徵"].tolist()
+        st.success(f"**保留 ({len(kept)} 個)**: {', '.join(kept) if kept else '無'}")
+        if removed:
+            st.error(f"**剔除 ({len(removed)} 個)**: {', '.join(removed)}")
+        st.caption(f"α = {alpha:.2f} · 標準 α = 0.05 時保留 R&D + Marketing")
 
 # 2. Forward Selection
 with st.expander("🔜 前向選擇 (Forward Selection) — 從零開始，逐一加入貢獻最大的特徵", expanded=False):
@@ -308,6 +369,16 @@ with st.expander("🔄 遞迴特徵消除 (RFE) — 利用模型權重反覆修�
 # 4. Lasso L1
 with st.expander("🎯 Lasso (L1 正則化) — 透過懲罰項將不重要特徵係數壓縮至零", expanded=False):
     st.markdown("隨著正則化強度 α 增大，不重要特徵的係數率先被壓縮至 0，達到內建特徵選擇的效果。")
+
+    # Alpha slider for interactive vertical line
+    lasso_alphas = [0.001, 0.01, 0.1, 1.0, 10.0]
+    lasso_alpha = st.select_slider(
+        "拖曳選擇 α 值，觀察各特徵係數變化",
+        options=lasso_alphas,
+        value=0.1,
+        key="lasso_alpha",
+    )
+
     # Melt for multi-line plot
     df_lasso_melt = df_lasso.melt(id_vars="Alpha (正則化強度)", var_name="特徵", value_name="係數")
     fig_lasso = px.line(
@@ -316,8 +387,23 @@ with st.expander("🎯 Lasso (L1 正則化) — 透過懲罰項將不重要特�
         title="Lasso — 係數收縮路徑 (Coefficient Shrinkage Path)",
         color_discrete_sequence=["#10b981", "#3b82f6", "#facc15", "#f97316", "#ef4444"],
     )
+    # Add vertical line at selected alpha
+    fig_lasso.add_vline(x=lasso_alpha, line_dash="dash", line_width=2, line_color="#1e1e1e",
+                        annotation_text=f"α={lasso_alpha}", annotation_position="top")
     fig_lasso.update_layout(xaxis=dict(type="log", title="Alpha (log scale)"), yaxis=dict(title="標準化係數"))
     st.plotly_chart(fig_lasso, use_container_width=True)
+
+    # Show coefficient table at selected alpha
+    st.caption(f"α = {lasso_alpha} 時的係數值：")
+    row = df_lasso[df_lasso["Alpha (正則化強度)"] == lasso_alpha].iloc[0]
+    coeff_cols = st.columns(5)
+    features_list = ["R&D Spend", "Marketing Spend", "State_Florida", "Administration", "State_New York"]
+    colors_list = ["#10b981", "#3b82f6", "#facc15", "#f97316", "#ef4444"]
+    for i, (feat, clr) in enumerate(zip(features_list, colors_list)):
+        with coeff_cols[i]:
+            val = row[feat]
+            st.metric(feat, f"{val:.3f}", delta="保留" if val > 0 else "歸零",
+                      delta_color="normal" if val > 0 else "off")
     st.success("**最終選取**：R&D Spend + Marketing Spend（在中等 α 下即穩定保留）")
 
 # 5. Mutual Information
@@ -377,15 +463,16 @@ else:
 fig_sfa = px.line(
     df_sfa, x="特徵數", y=y_col, markers=True, title=_title,
     labels={"特徵數": "特徵數量", y_col: y_label},
-    custom_data=["選取特徵"],
+    custom_data=["選取特徵", "特徵數", "R-squared", "RMSE"],
 )
 fig_sfa.update_traces(
     line=dict(color=line_color, width=3),
     marker=dict(size=14, color=line_color, line=dict(width=1, color="white")),
     hovertemplate=(
         "<b>選取特徵</b>: %{customdata[0]}<br>"
-        "<b>特徵數</b>: %{x}<br>"
-        f"<b>{y_label}</b>: %{{y:{y_fmt}}}<extra></extra>"
+        "<b>特徵數</b>: %{customdata[1]}<br>"
+        "<b>R²</b>: %{customdata[2]:.4f}<br>"
+        "<b>RMSE</b>: $%{customdata[3]:,.2f}<extra></extra>"
     ),
 )
 fig_sfa.add_trace(
@@ -400,7 +487,7 @@ fig_sfa.add_trace(
             "<b>特徵數</b>: %{x}<br>"
             f"<b>{y_label}</b>: %{{y:{y_fmt}}} " + best_label + "<extra></extra>"
         ),
-        customdata=[[BEST_FEATURES]],
+        customdata=[[BEST_FEATURES, BEST_N, BEST_R2, BEST_RMSE]],
     )
 )
 fig_sfa.update_layout(
@@ -409,19 +496,42 @@ fig_sfa.update_layout(
 )
 if y_range:
     fig_sfa.update_layout(yaxis=dict(range=y_range, title=y_label))
-st.plotly_chart(fig_sfa, use_container_width=True)
+
+# Click-to-highlight interaction
+selected = st.plotly_chart(fig_sfa, use_container_width=True, key="sfa_chart",
+                           on_select="rerun", selection_mode="points")
 
 # 4.2 SFA Data Table
 st.subheader("SFA 詳細數據")
+st.caption("💡 **點擊圖表上的資料點**，下方表格會自動高亮對應列 · 點擊空白處取消選取")
+
+# Determine highlighted row from click
+highlight_idx = None
+if selected and selected.selection and selected.selection.points:
+    point = selected.selection.points[0]
+    highlight_idx = point["point_index"]
+
+if highlight_idx is not None:
+    sel_n = int(df_sfa.iloc[highlight_idx]["特徵數"])
+    sel_feat = df_sfa.iloc[highlight_idx]["選取特徵"]
+    st.info(f"🔍 已選取：**{sel_n} 個特徵** — {sel_feat}")
+
+# Build styled dataframe with highlight
+def highlight_sfa_row(row):
+    idx = row.name
+    if highlight_idx is not None and idx == highlight_idx:
+        return ["background-color: #fef08a; font-weight: bold"] * len(row)
+    return [""] * len(row)
+
 st.dataframe(
-    df_sfa.style.format({"RMSE": "${:,.2f}", "R-squared": "{:.4f}"}),
+    df_sfa.style.format({"RMSE": "${:,.2f}", "R-squared": "{:.4f}"}).apply(highlight_sfa_row, axis=1),
     column_config={
         "特徵數": "特徵數",
         "選取特徵": "選取特徵組合",
         "RMSE": st.column_config.NumberColumn("RMSE ($)", format="$%.2f"),
         "R-squared": st.column_config.NumberColumn("R²", format="%.4f"),
     },
-    use_container_width=True, hide_index=True,
+    use_container_width=True,
 )
 
 # 4.3 Diagnostics
