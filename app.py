@@ -672,22 +672,6 @@ with ins3:
     </div>
     """, unsafe_allow_html=True)
 
-st.divider()
-
-# Key metrics ribbon
-st.subheader("🏆 最佳模型績效")
-m1, m2, m3, m4, m5 = st.columns(5)
-with m1:
-    st.metric("Test R²", f"{BEST_R2:.4f}", delta="94.74% 解釋力")
-with m2:
-    st.metric("Test RMSE", f"${BEST_RMSE:,.2f}", delta="預測誤差範圍")
-with m3:
-    st.metric("最佳特徵數", str(BEST_N), delta="R&D + Marketing")
-with m4:
-    st.metric("特徵選擇方法", "5 種", delta="全票共識: R&D")
-with m5:
-    st.metric("測試樣本", "10 筆", delta="80/20 分割")
-
 # Feature importance summary chart
 st.subheader("特徵重要性總結")
 fig_importance = go.Figure(data=[
@@ -706,6 +690,22 @@ fig_importance.update_layout(
     showlegend=False,
 )
 st.plotly_chart(fig_importance, use_container_width=True)
+
+st.divider()
+
+# Key metrics ribbon
+st.subheader("🏆 最佳模型績效")
+m1, m2, m3, m4, m5 = st.columns(5)
+with m1:
+    st.metric("Test R²", f"{BEST_R2:.4f}", delta="94.74% 解釋力")
+with m2:
+    st.metric("Test RMSE", f"${BEST_RMSE:,.2f}", delta="預測誤差範圍")
+with m3:
+    st.metric("最佳特徵數", str(BEST_N), delta="R&D + Marketing")
+with m4:
+    st.metric("特徵選擇方法", "5 種", delta="全票共識: R&D")
+with m5:
+    st.metric("測試樣本", "10 筆", delta="80/20 分割")
 
 # ── 5.1 Predicted vs Actual ──────────────────────────────────────────
 st.subheader("模型驗證：預測值 vs 實際值 (Predicted vs Actual)")
