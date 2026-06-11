@@ -559,59 +559,58 @@ st.markdown("""
 以下圖表同時展示 RMSE 與 R² 隨特徵數量變化的雙軸曲線，轉折點即為效能最優的特徵數。
 """)
 
-# Dual-axis elbow point chart
-fig_elbow = go.Figure()
+# Two side-by-side elbow point charts
+col_el, col_er = st.columns(2)
 
-# RMSE trace (left y-axis)
-fig_elbow.add_trace(go.Scatter(
-    x=df_sfa["特徵數"], y=df_sfa["RMSE"],
-    mode="lines+markers", name="RMSE",
-    line=dict(color="#f97316", width=3),
-    marker=dict(size=14, color="#f97316", line=dict(width=1, color="white")),
-    yaxis="y1",
-    hovertemplate="<b>特徵數</b>: %{x}<br><b>RMSE</b>: $%{y:,.2f}<extra></extra>",
-))
+with col_el:
+    fig_rmse = px.line(
+        df_sfa, x="特徵數", y="RMSE", markers=True,
+        title="RMSE 轉折點分析",
+    )
+    fig_rmse.update_traces(
+        line=dict(color="#f97316", width=3),
+        marker=dict(size=12, color="#f97316"),
+        hovertemplate="<b>特徵數</b>: %{x}<br><b>RMSE</b>: $%{y:,.2f}<extra></extra>",
+    )
+    # Elbow point marker
+    fig_rmse.add_trace(go.Scatter(
+        x=[BEST_N], y=[BEST_RMSE], mode="markers+text",
+        name="轉折點", marker=dict(size=18, color="#facc15", symbol="star", line=dict(width=2, color="#1e1e1e")),
+        text=["最佳"], textposition="top center",
+        textfont=dict(size=12, color="#1e1e1e"),
+        hovertemplate="<b>RMSE</b>: $%{y:,.2f} (最低)<extra></extra>",
+    ))
+    fig_rmse.add_vline(x=2, line_dash="dash", line_width=2, line_color="#1e1e1e")
+    fig_rmse.update_layout(
+        xaxis=dict(tickmode="linear", tick0=1, dtick=1),
+        showlegend=False, hovermode="closest",
+    )
+    st.plotly_chart(fig_rmse, use_container_width=True)
 
-# R² trace (right y-axis)
-fig_elbow.add_trace(go.Scatter(
-    x=df_sfa["特徵數"], y=df_sfa["R-squared"],
-    mode="lines+markers", name="R²",
-    line=dict(color="#10b981", width=3),
-    marker=dict(size=14, color="#10b981", line=dict(width=1, color="white")),
-    yaxis="y2",
-    hovertemplate="<b>特徵數</b>: %{x}<br><b>R²</b>: %{y:.4f}<extra></extra>",
-))
-
-# Highlight elbow point (feature count = 2)
-fig_elbow.add_vline(
-    x=2, line_dash="dash", line_width=3, line_color="#1e1e1e",
-    annotation=dict(
-        text="<b>轉折點 (Elbow Point)</b>",
-        font=dict(size=14, color="#1e1e1e"),
-        bgcolor="#fef08a", borderpad=4,
-    ),
-)
-
-# Add annotation for overfitting zone
-fig_elbow.add_vrect(
-    x0=2.5, x1=5.5,
-    fillcolor="#ef4444", opacity=0.08,
-    annotation_text="過度擬合區域",
-    annotation_position="top right",
-)
-
-fig_elbow.update_layout(
-    title="效率轉折點分析：RMSE 與 R² 雙軸曲線",
-    xaxis=dict(tickmode="linear", tick0=1, dtick=1, title="特徵數量"),
-    yaxis=dict(title="RMSE ($)", titlefont=dict(color="#f97316"), tickprefix="$", tickformat=",.0f"),
-    yaxis2=dict(
-        title="R²", titlefont=dict(color="#10b981"),
-        overlaying="y", side="right", range=[0.92, 0.96],
-    ),
-    hovermode="x unified",
-    legend=dict(orientation="h", y=1.12, x=0.5, xanchor="center"),
-)
-st.plotly_chart(fig_elbow, use_container_width=True)
+with col_er:
+    fig_r2 = px.line(
+        df_sfa, x="特徵數", y="R-squared", markers=True,
+        title="R² 轉折點分析",
+    )
+    fig_r2.update_traces(
+        line=dict(color="#10b981", width=3),
+        marker=dict(size=12, color="#10b981"),
+        hovertemplate="<b>特徵數</b>: %{x}<br><b>R²</b>: %{y:.4f}<extra></extra>",
+    )
+    fig_r2.add_trace(go.Scatter(
+        x=[BEST_N], y=[BEST_R2], mode="markers+text",
+        name="轉折點", marker=dict(size=18, color="#facc15", symbol="star", line=dict(width=2, color="#1e1e1e")),
+        text=["最佳"], textposition="top center",
+        textfont=dict(size=12, color="#1e1e1e"),
+        hovertemplate="<b>R²</b>: %{y:.4f} (最高)<extra></extra>",
+    ))
+    fig_r2.add_vline(x=2, line_dash="dash", line_width=2, line_color="#1e1e1e")
+    fig_r2.update_layout(
+        xaxis=dict(tickmode="linear", tick0=1, dtick=1),
+        yaxis=dict(range=[0.92, 0.96]),
+        showlegend=False, hovermode="closest",
+    )
+    st.plotly_chart(fig_r2, use_container_width=True)
 
 # Explanation
 col_e1, col_e2 = st.columns(2)
