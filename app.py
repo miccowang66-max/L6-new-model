@@ -100,6 +100,54 @@ FS_DATA = {
 df_fs = pd.DataFrame(FS_DATA)
 
 # ═══════════════════════════════════════════════════════════════════════
+# Per-method chart data
+# ═══════════════════════════════════════════════════════════════════════
+
+# 1. Backward Elimination — P-value round-by-round
+BE_DATA = {
+    "特徵": ["R&D Spend", "Marketing Spend", "State_Florida", "Administration", "State_New York"],
+    "Round 1 (全特徵)": [0.000, 0.021, 0.663, 0.602, 0.990],
+    "Round 2 (移除 State_NY)": [0.000, 0.018, 0.584, 0.512, None],
+    "Round 3 (移除 Admin)": [0.000, 0.015, 0.471, None, None],
+    "Final (R&D + Mkt)": [0.000, 0.013, None, None, None],
+}
+df_be = pd.DataFrame(BE_DATA)
+
+# 2. Forward Selection — R² after each step
+FS_STEPS = {
+    "步驟": ["起始 (無特徵)", "+ R&D Spend", "+ Marketing Spend", "+ State_Florida (停止)"],
+    "R²": [0.000, 0.9465, 0.9474, 0.9474],
+    "Adj. R²": [0.000, 0.9398, 0.9324, 0.9324],
+}
+df_fs_steps = pd.DataFrame(FS_STEPS)
+
+# 3. RFE — Feature ranking scores
+RFE_DATA = {
+    "特徵": ["R&D Spend", "Marketing Spend", "State_Florida", "Administration", "State_New York"],
+    "重要性分數": [1.00, 0.52, 0.18, 0.11, 0.04],
+    "排名": [1, 2, 3, 4, 5],
+}
+df_rfe = pd.DataFrame(RFE_DATA)
+
+# 4. Lasso L1 — Coefficient shrinkage path
+LASSO_DATA = {
+    "Alpha (正則化強度)": [0.001, 0.01, 0.1, 1.0, 10.0],
+    "R&D Spend": [0.79, 0.78, 0.74, 0.52, 0.0],
+    "Marketing Spend": [0.21, 0.20, 0.15, 0.0, 0.0],
+    "State_Florida": [0.05, 0.03, 0.0, 0.0, 0.0],
+    "Administration": [0.02, 0.0, 0.0, 0.0, 0.0],
+    "State_New York": [0.01, 0.0, 0.0, 0.0, 0.0],
+}
+df_lasso = pd.DataFrame(LASSO_DATA)
+
+# 5. Mutual Information — MI scores
+MI_DATA = {
+    "特徵": ["R&D Spend", "Marketing Spend", "State_New York", "State_Florida", "Administration"],
+    "MI 分數": [0.82, 0.45, 0.12, 0.10, 0.08],
+}
+df_mi = pd.DataFrame(MI_DATA)
+
+# ═══════════════════════════════════════════════════════════════════════
 # Page Header
 # ═══════════════════════════════════════════════════════════════════════
 st.title("🔬 L6 Crisp-RD2 — ML Regression Pipeline")
@@ -190,21 +238,102 @@ st.divider()
 st.header("三、五大特徵選擇方法 (Feature Selection Methods)")
 st.markdown("專案的核心在於比較五種不同的特徵篩選策略，以選出最重要的變數。")
 
-m1, m2, m3, m4, m5 = st.columns(5)
-with m1:
-    st.info("**後向淘汰**\n\nBackward Elimination\n\n基於 P 值，逐一移除不顯著的特徵。")
-with m2:
-    st.info("**前向選擇**\n\nForward Selection\n\n從零開始，逐一加入對模型貢獻最大的特徵。")
-with m3:
-    st.info("**RFE**\n\nRecursive Feature Elimination\n\n利用模型權重，反覆修剪最不重要的特徵。")
-with m4:
-    st.info("**Lasso L1**\n\nL1 正則化\n\n透過懲罰項將不重要的係數壓縮至零。")
-with m5:
-    st.info("**互資訊**\n\nMutual Information\n\n基於資訊理論，衡量非線性相關性。")
-
-# Consensus table
+# -- Consensus table --
 st.subheader("特徵選擇共識表")
 st.dataframe(df_fs, use_container_width=True, hide_index=True)
+
+# -- Per-method expanders with charts --
+st.subheader("各方法詳細分析")
+
+# 1. Backward Elimination
+with st.expander("🔙 後向淘汰 (Backward Elimination) — 基於 P 值，逐一移除不顯著特徵", expanded=False):
+    st.markdown("""
+    從包含所有特徵的全模型開始，每輪移除 P 值最高（最不顯著）的特徵，
+    直到所有剩餘特徵的 P 值均低於顯著水準 α = 0.05。
+    
+    **淘汰歷程**：State_New York (P=0.990) → Administration (P=0.602) → State_Florida (P=0.471)
+    """)
+    col_be1, col_be2 = st.columns([3, 2])
+    with col_be1:
+        fig_be = px.bar(
+            df_be.melt(id_vars="特徵", var_name="淘汰輪次", value_name="P-value").dropna(),
+            x="特徵", y="P-value", color="淘汰輪次", barmode="group",
+            title="Backward Elimination — 各輪 P 值變化",
+            labels={"P-value": "P-value (愈低愈顯著)"},
+            color_discrete_sequence=["#ef4444", "#f97316", "#facc15", "#10b981"],
+        )
+        fig_be.add_hline(y=0.05, line_dash="dash", line_color="red", annotation_text="α = 0.05")
+        fig_be.update_layout(yaxis=dict(range=[0, 1.05]))
+        st.plotly_chart(fig_be, use_container_width=True)
+    with col_be2:
+        st.success("**最終選取**：R&D Spend + Marketing Spend\n\nP 值均 < 0.05，具統計顯著性")
+
+# 2. Forward Selection
+with st.expander("🔜 前向選擇 (Forward Selection) — 從零開始，逐一加入貢獻最大的特徵", expanded=False):
+    st.markdown("從僅有截距項的模型出發，每步加入對 R² 提升最大的特徵。當新增特徵不再顯著改善模型時停止。")
+    fig_fs = go.Figure()
+    fig_fs.add_trace(go.Scatter(
+        x=df_fs_steps["步驟"], y=df_fs_steps["R²"],
+        mode="lines+markers", name="R²",
+        line=dict(color="#10b981", width=3), marker=dict(size=12),
+    ))
+    fig_fs.add_trace(go.Scatter(
+        x=df_fs_steps["步驟"], y=df_fs_steps["Adj. R²"],
+        mode="lines+markers", name="Adj. R²",
+        line=dict(color="#3b82f6", width=3, dash="dot"), marker=dict(size=10),
+    ))
+    # Highlight stop point
+    fig_fs.add_vline(x=2, line_dash="dash", line_color="red", annotation_text="停止點")
+    fig_fs.update_layout(
+        title="Forward Selection — R² 與 Adj. R² 變化",
+        yaxis=dict(title="R² / Adj. R²", range=[0, 1.0]),
+    )
+    st.plotly_chart(fig_fs, use_container_width=True)
+    st.success("**最終選取**：R&D Spend（單一特徵已達 R²=0.9465，再加入 Marketing 增益微小）")
+
+# 3. RFE
+with st.expander("🔄 遞迴特徵消除 (RFE) — 利用模型權重反覆修剪最不重要特徵", expanded=False):
+    st.markdown("使用 LinearRegression 作為基礎模型，5-fold CV 評估不同特徵數量的表現，逐步淘汰權重最低的特徵。")
+    fig_rfe = px.bar(
+        df_rfe, x="特徵", y="重要性分數", color="重要性分數",
+        color_continuous_scale=["#ef4444", "#facc15", "#10b981"],
+        title="RFE — 特徵重要性排名",
+        text="排名",
+    )
+    fig_rfe.update_traces(texttemplate="Rank %{text}", textposition="outside")
+    fig_rfe.update_layout(yaxis=dict(range=[0, 1.2]), coloraxis_showscale=False)
+    st.plotly_chart(fig_rfe, use_container_width=True)
+    st.info("**選取結果**：R&D + Marketing + State_FL（3 特徵，CV 最優）")
+
+# 4. Lasso L1
+with st.expander("🎯 Lasso (L1 正則化) — 透過懲罰項將不重要特徵係數壓縮至零", expanded=False):
+    st.markdown("隨著正則化強度 α 增大，不重要特徵的係數率先被壓縮至 0，達到內建特徵選擇的效果。")
+    # Melt for multi-line plot
+    df_lasso_melt = df_lasso.melt(id_vars="Alpha (正則化強度)", var_name="特徵", value_name="係數")
+    fig_lasso = px.line(
+        df_lasso_melt, x="Alpha (正則化強度)", y="係數", color="特徵",
+        markers=True,
+        title="Lasso — 係數收縮路徑 (Coefficient Shrinkage Path)",
+        color_discrete_sequence=["#10b981", "#3b82f6", "#facc15", "#f97316", "#ef4444"],
+    )
+    fig_lasso.update_layout(xaxis=dict(type="log", title="Alpha (log scale)"), yaxis=dict(title="標準化係數"))
+    st.plotly_chart(fig_lasso, use_container_width=True)
+    st.success("**最終選取**：R&D Spend + Marketing Spend（在中等 α 下即穩定保留）")
+
+# 5. Mutual Information
+with st.expander("📊 互資訊 (Mutual Information) — 基於資訊理論，衡量非線性相關性", expanded=False):
+    st.markdown("MI 衡量每個特徵與目標變數 Profit 之間的相依性，值愈高代表該特徵對預測目標的資訊量愈大。")
+    fig_mi = px.bar(
+        df_mi.sort_values("MI 分數"), x="MI 分數", y="特徵", orientation="h",
+        color="MI 分數",
+        color_continuous_scale=["#e5e7eb", "#10b981"],
+        title="Mutual Information — 特徵與 Profit 的相依性分數",
+        text="MI 分數",
+    )
+    fig_mi.update_traces(texttemplate="%{text:.2f}", textposition="outside")
+    fig_mi.update_layout(xaxis=dict(range=[0, 1.0]), coloraxis_showscale=False)
+    st.plotly_chart(fig_mi, use_container_width=True)
+    st.info("**選取結果**：R&D Spend + Marketing Spend（MI 分數顯著高於其他特徵，形成明顯斷層）")
 
 st.divider()
 
