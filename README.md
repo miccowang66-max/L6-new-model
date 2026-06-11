@@ -11,7 +11,7 @@
 
 | Platform | URL | Description |
 |----------|-----|-------------|
-| **Streamlit App** | `streamlit run app.py` | Interactive CRISP-DM dashboard with data exploration, modeling workflow, and SFA charts |
+| **Streamlit App** | [l6-new-model.streamlit.app](https://l6-new-model.streamlit.app/) | Interactive CRISP-DM dashboard with data exploration, modeling workflow, and SFA charts |
 | **GitHub Pages** | [miccowang66-max.github.io/L6-new-model](https://miccowang66-max.github.io/L6-new-model/) | Interactive dashboard with all figures and analysis |
 | **GitHub Repo** | [miccowang66-max/L6-new-model](https://github.com/miccowang66-max/L6-new-model) | Full source code, scripts, and reports |
 
