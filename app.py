@@ -272,7 +272,7 @@ st.dataframe(df_fs, use_container_width=True, hide_index=True)
 st.subheader("各方法詳細分析")
 
 # 1. Backward Elimination
-with st.expander("🔙 後向淘汰 (Backward Elimination) — 基於 P 值，逐一移除不顯著特徵", expanded=False):
+with st.expander("🔙 後向淘汰 (Backward Elimination) — 基於 P 值，逐一移除不顯著特徵", expanded=True):
     st.markdown("""
     從包含所有特徵的全模型開始，每輪移除 P 值最高（最不顯著）的特徵，
     直到所有剩餘特徵的 P 值均低於顯著水準 α。
@@ -284,7 +284,7 @@ with st.expander("🔙 後向淘汰 (Backward Elimination) — 基於 P 值，�
     alpha = st.slider(
         "顯著水準 α（拖曳調整門檻，觀察哪些特徵被保留）",
         min_value=0.00, max_value=1.00, value=0.05, step=0.01,
-        key="be_alpha",
+        key="be_alpha_v2",
     )
 
     # Final P-values per feature (at elimination round or final)
@@ -373,7 +373,7 @@ with st.expander("🔄 遞迴特徵消除 (RFE) — 利用模型權重反覆修�
     st.info("**選取結果**：R&D + Marketing + State_FL（3 特徵，CV 最優）")
 
 # 4. Lasso L1
-with st.expander("🎯 Lasso (L1 正則化) — 透過懲罰項將不重要特徵係數壓縮至零", expanded=False):
+with st.expander("🎯 Lasso (L1 正則化) — 透過懲罰項將不重要特徵係數壓縮至零", expanded=True):
     st.markdown("隨著正則化強度 α 增大，不重要特徵的係數率先被壓縮至 0，達到內建特徵選擇的效果。")
 
     # Alpha slider for interactive vertical line
@@ -382,7 +382,7 @@ with st.expander("🎯 Lasso (L1 正則化) — 透過懲罰項將不重要特�
         "拖曳選擇 α 值，觀察各特徵係數變化",
         options=lasso_alphas,
         value=0.1,
-        key="lasso_alpha",
+        key="lasso_alpha_v2",
     )
 
     # Melt for multi-line plot
@@ -503,29 +503,16 @@ fig_sfa.update_layout(
 if y_range:
     fig_sfa.update_layout(yaxis=dict(range=y_range, title=y_label))
 
-# Click-to-highlight interaction
-selected = st.plotly_chart(fig_sfa, use_container_width=True, key="sfa_chart",
-                           on_select="rerun", selection_mode="points")
+st.plotly_chart(fig_sfa, use_container_width=True)
 
 # 4.2 SFA Data Table
 st.subheader("SFA 詳細數據")
-st.caption("💡 **點擊圖表上的資料點**，下方表格會自動高亮對應列 · 點擊空白處取消選取")
+st.caption("💡 最佳模型（2 特徵）已黃底高亮 · hover 圖表資料點查看完整 R² + RMSE")
 
-# Determine highlighted row from click
-highlight_idx = None
-if selected and selected.selection and selected.selection.points:
-    point = selected.selection.points[0]
-    highlight_idx = point["point_index"]
-
-if highlight_idx is not None:
-    sel_n = int(df_sfa.iloc[highlight_idx]["特徵數"])
-    sel_feat = df_sfa.iloc[highlight_idx]["選取特徵"]
-    st.info(f"🔍 已選取：**{sel_n} 個特徵** — {sel_feat}")
-
-# Build styled dataframe with highlight
+# Always highlight the best row
 def highlight_sfa_row(row):
     idx = row.name
-    if highlight_idx is not None and idx == highlight_idx:
+    if idx == BEST_IDX:
         return ["background-color: #fef08a; font-weight: bold"] * len(row)
     return [""] * len(row)
 
