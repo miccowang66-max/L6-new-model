@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>L6 Crisp-RD2 — Production Ready ML Regression Pipeline Infographic</title>
-  
+
   <!-- Fonts: Sketchy / Handwritten fonts + Inter for high readability -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@400;700&family=Comic+Neue:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@400;700&family=Comic+Neue:wght@400;700&family=Inter:wght@400;600;800&display=swap"
+    rel="stylesheet">
 
   <style>
     :root {
@@ -16,31 +19,31 @@
       --font-accent: 'Caveat', cursive;
       --font-body: 'Comic Neue', cursive;
       --font-sans: 'Inter', sans-serif;
-      
+
       --border-dark: #1e1e1e;
       --bg-grid-color: rgba(30, 30, 30, 0.05);
-      
+
       /* Hand-drawn Color Palette */
       --color-blue: #3b82f6;
       --color-blue-dark: #1d4ed8;
       --bg-blue: #eff6ff;
-      
+
       --color-green: #10b981;
       --color-green-dark: #047857;
       --bg-green: #f0fdf4;
-      
+
       --color-purple: #8b5cf6;
       --color-purple-dark: #6d28d9;
       --bg-purple: #faf5ff;
-      
+
       --color-orange: #f97316;
       --color-orange-dark: #c2410c;
       --bg-orange: #fff7ed;
-      
+
       --color-teal: #14b8a6;
       --color-teal-dark: #0f766e;
       --bg-teal: #f0fdfa;
-      
+
       --color-yellow: #facc15;
       --bg-yellow: #fefce8;
     }
@@ -54,7 +57,7 @@
     body {
       background-color: #fafafa;
       /* Grid paper effect */
-      background-image: 
+      background-image:
         linear-gradient(to right, var(--bg-grid-color) 1px, transparent 1px),
         linear-gradient(to bottom, var(--bg-grid-color) 1px, transparent 1px);
       background-size: 30px 30px;
@@ -81,7 +84,8 @@
     .header-box {
       background: white;
       border: 3.5px solid var(--border-dark);
-      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* Excalidraw organic look */
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+      /* Excalidraw organic look */
       box-shadow: 8px 8px 0px var(--border-dark);
       padding: 2rem;
       display: inline-block;
@@ -168,16 +172,31 @@
       position: relative;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    
+
     .metric-card:hover {
       transform: translate(-2px, -2px);
       box-shadow: 7px 7px 0px var(--border-dark);
     }
 
-    .metric-card.blue { border-radius: 12px 20px 8px 15px/15px 8px 20px 12px; background-color: var(--bg-blue); }
-    .metric-card.green { border-radius: 20px 8px 15px 12px/12px 15px 8px 20px; background-color: var(--bg-green); }
-    .metric-card.purple { border-radius: 15px 12px 20px 8px/8px 20px 12px 15px; background-color: var(--bg-purple); }
-    .metric-card.orange { border-radius: 8px 15px 12px 20px/20px 12px 15px 8px; background-color: var(--bg-orange); }
+    .metric-card.blue {
+      border-radius: 12px 20px 8px 15px/15px 8px 20px 12px;
+      background-color: var(--bg-blue);
+    }
+
+    .metric-card.green {
+      border-radius: 20px 8px 15px 12px/12px 15px 8px 20px;
+      background-color: var(--bg-green);
+    }
+
+    .metric-card.purple {
+      border-radius: 15px 12px 20px 8px/8px 20px 12px 15px;
+      background-color: var(--bg-purple);
+    }
+
+    .metric-card.orange {
+      border-radius: 8px 15px 12px 20px/20px 12px 15px 8px;
+      background-color: var(--bg-orange);
+    }
 
     .metric-val {
       font-family: var(--font-hand);
@@ -211,13 +230,27 @@
       margin-bottom: 3rem;
     }
 
-    .col-4 { grid-column: span 4; }
-    .col-6 { grid-column: span 6; }
-    .col-8 { grid-column: span 8; }
-    .col-12 { grid-column: span 12; }
+    .col-4 {
+      grid-column: span 4;
+    }
+
+    .col-6 {
+      grid-column: span 6;
+    }
+
+    .col-8 {
+      grid-column: span 8;
+    }
+
+    .col-12 {
+      grid-column: span 12;
+    }
 
     @media (max-width: 1024px) {
-      .col-4, .col-6, .col-8 {
+
+      .col-4,
+      .col-6,
+      .col-8 {
         grid-column: span 12;
       }
     }
@@ -241,18 +274,46 @@
     }
 
     /* Organic Border Variations */
-    .card-style-1 { border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; }
-    .card-style-2 { border-radius: 15px 225px 15px 255px/255px 15px 225px 15px; }
-    .card-style-3 { border-radius: 20px 10px 20px 10px/10px 20px 10px 20px; }
-    .card-style-4 { border-radius: 10px 20px 10px 20px/20px 10px 20px 10px; }
+    .card-style-1 {
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    }
+
+    .card-style-2 {
+      border-radius: 15px 225px 15px 255px/255px 15px 225px 15px;
+    }
+
+    .card-style-3 {
+      border-radius: 20px 10px 20px 10px/10px 20px 10px 20px;
+    }
+
+    .card-style-4 {
+      border-radius: 10px 20px 10px 20px/20px 10px 20px 10px;
+    }
 
     /* Background overrides */
-    .sketch-card.blue { background-color: var(--bg-blue); }
-    .sketch-card.green { background-color: var(--bg-green); }
-    .sketch-card.purple { background-color: var(--bg-purple); }
-    .sketch-card.orange { background-color: var(--bg-orange); }
-    .sketch-card.teal { background-color: var(--bg-teal); }
-    .sketch-card.yellow { background-color: var(--bg-yellow); }
+    .sketch-card.blue {
+      background-color: var(--bg-blue);
+    }
+
+    .sketch-card.green {
+      background-color: var(--bg-green);
+    }
+
+    .sketch-card.purple {
+      background-color: var(--bg-purple);
+    }
+
+    .sketch-card.orange {
+      background-color: var(--bg-orange);
+    }
+
+    .sketch-card.teal {
+      background-color: var(--bg-teal);
+    }
+
+    .sketch-card.yellow {
+      background-color: var(--bg-yellow);
+    }
 
     .card-title {
       font-family: var(--font-hand);
@@ -279,7 +340,7 @@
     }
 
     /* ====== ELEMENTS & UTILITIES ====== */
-    
+
     /* Lists */
     ul.sketch-list {
       list-style-type: none;
@@ -307,7 +368,7 @@
       content: "✦";
       color: var(--color-blue-dark);
     }
-    
+
     ul.sketch-list.arrow-bullets li::before {
       content: "➔";
       color: var(--color-purple-dark);
@@ -327,7 +388,8 @@
       background: white;
     }
 
-    .sketch-table th, .sketch-table td {
+    .sketch-table th,
+    .sketch-table td {
       border: 2px solid var(--border-dark);
       padding: 0.6rem 0.8rem;
       text-align: left;
@@ -346,11 +408,12 @@
 
     /* Marker Highlight Effect */
     .highlight-row td {
-      background-color: #fef08a !important; /* Yellow highlighter */
+      background-color: #fef08a !important;
+      /* Yellow highlighter */
       font-weight: bold;
       border: 2.5px solid var(--border-dark) !important;
     }
-    
+
     .badge {
       display: inline-block;
       padding: 0.2rem 0.6rem;
@@ -363,11 +426,30 @@
       background: white;
     }
 
-    .badge.blue { background-color: var(--bg-blue); color: var(--color-blue-dark); }
-    .badge.green { background-color: var(--bg-green); color: var(--color-green-dark); }
-    .badge.purple { background-color: var(--bg-purple); color: var(--color-purple-dark); }
-    .badge.orange { background-color: var(--bg-orange); color: var(--color-orange-dark); }
-    .badge.teal { background-color: var(--bg-teal); color: var(--color-teal-dark); }
+    .badge.blue {
+      background-color: var(--bg-blue);
+      color: var(--color-blue-dark);
+    }
+
+    .badge.green {
+      background-color: var(--bg-green);
+      color: var(--color-green-dark);
+    }
+
+    .badge.purple {
+      background-color: var(--bg-purple);
+      color: var(--color-purple-dark);
+    }
+
+    .badge.orange {
+      background-color: var(--bg-orange);
+      color: var(--color-orange-dark);
+    }
+
+    .badge.teal {
+      background-color: var(--bg-teal);
+      color: var(--color-teal-dark);
+    }
 
     /* Speech Bubble / Quote */
     .sketch-quote {
@@ -457,15 +539,16 @@
       stroke-linejoin: round;
       transition: stroke-dashoffset 1s ease-out;
     }
-    
+
     .chart-point {
       cursor: pointer;
       transition: r 0.2s ease, fill 0.2s ease;
     }
+
     .chart-point:hover {
       r: 8;
     }
-    
+
     .chart-tooltip {
       position: absolute;
       background: white;
@@ -541,7 +624,7 @@
       align-items: center;
       justify-content: center;
     }
-    
+
     .workflow-connector-down {
       width: 100%;
       height: 30px;
@@ -549,7 +632,7 @@
       justify-content: flex-end;
       padding-right: 12%;
     }
-    
+
     .workflow-connector-up {
       width: 100%;
       height: 30px;
@@ -605,7 +688,7 @@
       border-radius: 3px;
       border: 1px solid var(--border-dark);
     }
-    
+
     .wireframe-bar.accent {
       background: var(--color-orange);
     }
@@ -634,7 +717,7 @@
       justify-content: center;
       padding: 0.2rem;
     }
-    
+
     .wireframe-box.winner {
       background-color: var(--bg-yellow);
     }
@@ -677,7 +760,7 @@
       display: inline-block;
       vertical-align: middle;
     }
-    
+
     .doodle-arrow {
       stroke-dasharray: 500;
       stroke-dashoffset: 0;
@@ -689,8 +772,15 @@
     }
 
     @keyframes pulse {
-      0% { transform: scale(1); opacity: 0.7; }
-      100% { transform: scale(1.15); opacity: 1; }
+      0% {
+        transform: scale(1);
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: scale(1.15);
+        opacity: 1;
+      }
     }
 
     /* Info Badge Label */
@@ -719,6 +809,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="container">
@@ -729,22 +820,33 @@
         <div class="header-logo-container">
           <!-- Award Trophy Doodle (Left) -->
           <svg viewBox="0 0 64 64" class="doodle-icon sparkle">
-            <path d="M16 12 L48 12 L44 36 C42 42, 36 46, 32 46 C28 46, 22 42, 20 36 Z" fill="none" stroke="var(--border-dark)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M32 46 L32 54 M24 54 L40 54" fill="none" stroke="var(--border-dark)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M16 12 L48 12 L44 36 C42 42, 36 46, 32 46 C28 46, 22 42, 20 36 Z" fill="none"
+              stroke="var(--border-dark)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M32 46 L32 54 M24 54 L40 54" fill="none" stroke="var(--border-dark)" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round" />
             <!-- Handles -->
-            <path d="M16 18 C8 18, 8 28, 20 30" fill="none" stroke="var(--border-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M48 18 C56 18, 56 28, 44 30" fill="none" stroke="var(--border-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M16 18 C8 18, 8 28, 20 30" fill="none" stroke="var(--border-dark)" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M48 18 C56 18, 56 28, 44 30" fill="none" stroke="var(--border-dark)" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" />
             <!-- Star inside -->
-            <path d="M32 20 L35 25 L40 25 L36 28 L38 33 L32 30 L26 33 L28 28 L24 25 L29 25 Z" fill="var(--color-yellow)" stroke="var(--border-dark)" stroke-width="1.5" stroke-linejoin="round" />
+            <path d="M32 20 L35 25 L40 25 L36 28 L38 33 L32 30 L26 33 L28 28 L24 25 L29 25 Z" fill="var(--color-yellow)"
+              stroke="var(--border-dark)" stroke-width="1.5" stroke-linejoin="round" />
           </svg>
 
           <!-- Python Logo Doodle (Right) -->
           <svg viewBox="0 0 64 64" class="doodle-icon">
             <!-- Top snake -->
-            <path d="M32 6 C24 6, 22 10, 22 16 L22 24 L32 24 L32 26 L18 26 C12 26, 10 28, 10 36 C10 42, 14 44, 20 44 L24 44 L24 40 C24 34, 28 32, 34 32 L44 32 C50 32, 54 28, 54 20 C54 12, 48 6, 32 6 Z" fill="none" stroke="var(--color-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M32 6 C24 6, 22 10, 22 16 L22 24 L32 24 L32 26 L18 26 C12 26, 10 28, 10 36 C10 42, 14 44, 20 44 L24 44 L24 40 C24 34, 28 32, 34 32 L44 32 C50 32, 54 28, 54 20 C54 12, 48 6, 32 6 Z"
+              fill="none" stroke="var(--color-blue)" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round" />
             <circle cx="28" cy="12" r="2" fill="var(--color-blue)" />
             <!-- Bottom snake -->
-            <path d="M32 58 C40 58, 42 54, 42 48 L42 40 L32 40 L32 38 L46 38 C52 38, 54 36, 54 28 C54 22, 50 20, 44 20 L40 20 L40 24 C40 30, 36 32, 30 32 L20 32 C14 32, 10 36, 10 44 C10 52, 16 58, 32 58 Z" fill="none" stroke="var(--color-yellow)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M32 58 C40 58, 42 54, 42 48 L42 40 L32 40 L32 38 L46 38 C52 38, 54 36, 54 28 C54 22, 50 20, 44 20 L40 20 L40 24 C40 30, 36 32, 30 32 L20 32 C14 32, 10 36, 10 44 C10 52, 16 58, 32 58 Z"
+              fill="none" stroke="var(--color-yellow)" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round" />
             <circle cx="36" cy="52" r="2" fill="var(--color-yellow)" />
           </svg>
         </div>
@@ -773,19 +875,22 @@
 
     <!-- ====== TAB SWITCHER ====== -->
     <div class="tab-container">
-      <button class="sketch-btn active" id="tab-interactive-btn" onclick="switchTab('interactive')">💻 Interactive Infographic</button>
+      <button class="sketch-btn active" id="tab-interactive-btn" onclick="switchTab('interactive')">💻 Interactive
+        Infographic</button>
       <button class="sketch-btn" id="tab-poster-btn" onclick="switchTab('poster')">🖼️ Static Poster (PNG)</button>
     </div>
 
     <!-- ====== STATIC POSTER TAB ====== -->
     <div id="poster-content" style="display:none; text-align:center; margin-bottom:3rem;">
       <div style="margin-bottom:2rem;">
-        <a href="ml_pipeline_infographic.png" download class="sketch-btn" style="text-decoration:none; display:inline-flex; background-color:var(--color-yellow)">
+        <a href="ml_pipeline_infographic.png" download class="sketch-btn"
+          style="text-decoration:none; display:inline-flex; background-color:var(--color-yellow)">
           <span>⬇️</span> Download High-Resolution Poster (PNG)
         </a>
       </div>
       <div class="poster-container">
-        <img src="ml_pipeline_infographic.png" alt="L6 Crisp-RD2 ML Pipeline Infographic Poster" style="max-width:100%; height:auto; border:1.5px solid var(--border-dark); border-radius:4px;" />
+        <img src="ml_pipeline_infographic.png" alt="L6 Crisp-RD2 ML Pipeline Infographic Poster"
+          style="max-width:100%; height:auto; border:1.5px solid var(--border-dark); border-radius:4px;" />
       </div>
     </div>
 
@@ -797,8 +902,9 @@
         <div class="metric-card blue">
           <span class="metric-val">0.9474</span>
           <span class="metric-label">Best Test R²</span>
-          <svg viewBox="0 0 24 24" class="metric-star sparkle" fill="var(--color-yellow)" stroke="var(--border-dark)" stroke-width="1.5">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          <svg viewBox="0 0 24 24" class="metric-star sparkle" fill="var(--color-yellow)" stroke="var(--border-dark)"
+            stroke-width="1.5">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
           </svg>
         </div>
         <div class="metric-card green">
@@ -819,8 +925,10 @@
       <div class="col-4">
         <div class="sketch-card teal card-style-1">
           <h2 class="card-title">
-            <svg class="card-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 4 L42 4 L54 16 L54 56 C54 58, 52 60, 50 60 L14 60 C12 60, 10 58, 10 56 L10 8 C10 6, 12 4, 14 4 Z" />
+            <svg class="card-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M14 4 L42 4 L54 16 L54 56 C54 58, 52 60, 50 60 L14 60 C12 60, 10 58, 10 56 L10 8 C10 6, 12 4, 14 4 Z" />
               <path d="M42 4 L42 16 L54 16" />
               <line x1="18" y1="26" x2="46" y2="26" stroke-width="2" />
               <line x1="18" y1="36" x2="46" y2="36" stroke-width="2" />
@@ -830,14 +938,19 @@
           </h2>
           <div class="card-content">
             <p style="margin-bottom: 1rem; line-height: 1.4;">
-              We designed a complete, modular **Scikit-learn** regression pipeline following the formal **CRISP-DM** framework to predict startup profitability.
+              We designed a complete, modular **Scikit-learn** regression pipeline following the formal **CRISP-DM**
+              framework to predict startup profitability.
             </p>
             <div class="info-label">Workspace Deliverables</div>
             <ul class="sketch-list blue-bullets">
-              <li>**`main_analysis.py`**<br><span style="font-size:0.9rem; color:#4b5563;">Execution orchestrator & pipeline runner</span></li>
-              <li>**`app.py`**<br><span style="font-size:0.9rem; color:#4b5563;">Interactive Streamlit Dashboard web app</span></li>
-              <li>**`feature_selection.py`**<br><span style="font-size:0.9rem; color:#4b5563;">Execution of 5 feature selection methods</span></li>
-              <li>**`outcome_visualization.png`**<br><span style="font-size:0.9rem; color:#4b5563;">Performance tracking (RMSE/R² plots)</span></li>
+              <li>**`main_analysis.py`**<br><span style="font-size:0.9rem; color:#4b5563;">Execution orchestrator &
+                  pipeline runner</span></li>
+              <li>**`app.py`**<br><span style="font-size:0.9rem; color:#4b5563;">Interactive Streamlit Dashboard web
+                  app</span></li>
+              <li>**`feature_selection.py`**<br><span style="font-size:0.9rem; color:#4b5563;">Execution of 5 feature
+                  selection methods</span></li>
+              <li>**`outcome_visualization.png`**<br><span style="font-size:0.9rem; color:#4b5563;">Performance tracking
+                  (RMSE/R² plots)</span></li>
             </ul>
           </div>
         </div>
@@ -847,7 +960,8 @@
       <div class="col-8">
         <div class="sketch-card green card-style-2">
           <h2 class="card-title">
-            <svg class="card-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="card-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
               <path d="M32 6 A26 26 0 1 0 32 58 A26 26 0 1 0 32 6 Z" stroke-dasharray="2 2" />
               <path d="M32 16 L32 32 L44 32" stroke-width="3" />
             </svg>
@@ -864,7 +978,8 @@
                 </div>
                 <div class="workflow-connector">
                   <svg viewBox="0 0 40 20" fill="none" stroke="var(--border-dark)" stroke-width="2">
-                    <path class="doodle-arrow" d="M2,10 Q20,2 38,10 M30,4 L38,10 L32,16" stroke-linecap="round" stroke-linejoin="round" />
+                    <path class="doodle-arrow" d="M2,10 Q20,2 38,10 M30,4 L38,10 L32,16" stroke-linecap="round"
+                      stroke-linejoin="round" />
                   </svg>
                 </div>
                 <div class="workflow-step">
@@ -874,7 +989,8 @@
                 </div>
                 <div class="workflow-connector">
                   <svg viewBox="0 0 40 20" fill="none" stroke="var(--border-dark)" stroke-width="2">
-                    <path class="doodle-arrow" d="M2,10 Q20,2 38,10 M30,4 L38,10 L32,16" stroke-linecap="round" stroke-linejoin="round" />
+                    <path class="doodle-arrow" d="M2,10 Q20,2 38,10 M30,4 L38,10 L32,16" stroke-linecap="round"
+                      stroke-linejoin="round" />
                   </svg>
                 </div>
                 <div class="workflow-step">
@@ -886,8 +1002,10 @@
 
               <!-- Connection row down -->
               <div class="workflow-connector-down">
-                <svg width="40" height="30" viewBox="0 0 20 30" fill="none" stroke="var(--border-dark)" stroke-width="2">
-                  <path class="doodle-arrow" d="M10,2 Q18,15 10,28 M4,20 L10,28 L16,22" stroke-linecap="round" stroke-linejoin="round" />
+                <svg width="40" height="30" viewBox="0 0 20 30" fill="none" stroke="var(--border-dark)"
+                  stroke-width="2">
+                  <path class="doodle-arrow" d="M10,2 Q18,15 10,28 M4,20 L10,28 L16,22" stroke-linecap="round"
+                    stroke-linejoin="round" />
                 </svg>
               </div>
 
@@ -900,7 +1018,8 @@
                 </div>
                 <div class="workflow-connector">
                   <svg viewBox="0 0 40 20" fill="none" stroke="var(--border-dark)" stroke-width="2">
-                    <path class="doodle-arrow" d="M38,10 Q20,18 2,10 M10,16 L2,10 L8,4" stroke-linecap="round" stroke-linejoin="round" />
+                    <path class="doodle-arrow" d="M38,10 Q20,18 2,10 M10,16 L2,10 L8,4" stroke-linecap="round"
+                      stroke-linejoin="round" />
                   </svg>
                 </div>
                 <div class="workflow-step">
@@ -910,7 +1029,8 @@
                 </div>
                 <div class="workflow-connector">
                   <svg viewBox="0 0 40 20" fill="none" stroke="var(--border-dark)" stroke-width="2">
-                    <path class="doodle-arrow" d="M38,10 Q20,18 2,10 M10,16 L2,10 L8,4" stroke-linecap="round" stroke-linejoin="round" />
+                    <path class="doodle-arrow" d="M38,10 Q20,18 2,10 M10,16 L2,10 L8,4" stroke-linecap="round"
+                      stroke-linejoin="round" />
                   </svg>
                 </div>
                 <div class="workflow-step">
@@ -920,9 +1040,10 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="sketch-quote" style="margin-top: 1.25rem;">
-              "CRISP-DM processes are highly cyclical. When evaluation reveals overfitting or outliers, we loop back to Data Prep to clean models."
+              "CRISP-DM processes are highly cyclical. When evaluation reveals overfitting or outliers, we loop back to
+              Data Prep to clean models."
             </div>
           </div>
         </div>
@@ -932,7 +1053,8 @@
       <div class="col-6">
         <div class="sketch-card purple card-style-3">
           <h2 class="card-title">
-            <svg class="card-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="card-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
               <rect x="10" y="6" width="44" height="52" rx="4" />
               <line x1="18" y1="18" x2="46" y2="18" stroke-width="3" />
               <line x1="18" y1="30" x2="46" y2="30" stroke-width="2" />
@@ -982,7 +1104,9 @@
 
             <p style="margin-top: 1rem; line-height: 1.4;">
               **Model Selection Justification:**
-              Adding features beyond R&D Spend and Marketing Spend (e.g. Administration or State location dummies) causes **overfitting**. Test RMSE rises from **$8,198.80** to **$9,137.99**, while R² falls. Model 2 represents the elbow point.
+              Adding features beyond R&D Spend and Marketing Spend (e.g. Administration or State location dummies)
+              causes **overfitting**. Test RMSE rises from **$8,198.80** to **$9,137.99**, while R² falls. Model 2
+              represents the elbow point.
             </p>
           </div>
         </div>
@@ -992,7 +1116,8 @@
       <div class="col-6">
         <div class="sketch-card orange card-style-4">
           <h2 class="card-title">
-            <svg class="card-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="card-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
               <circle cx="32" cy="32" r="26" />
               <path d="M22 32 L28 38 L42 24" stroke="var(--color-green-dark)" stroke-width="3" />
             </svg>
@@ -1062,7 +1187,8 @@
       <div class="col-6">
         <div class="sketch-card blue card-style-1">
           <h2 class="card-title">
-            <svg class="card-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="card-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
               <line x1="8" y1="56" x2="56" y2="56" />
               <line x1="8" y1="8" x2="8" y2="56" />
               <path d="M8 48 L20 40 L32 20 L44 32 L56 12" />
@@ -1073,9 +1199,10 @@
             <p style="margin-bottom: 0.5rem;">
               Visualizing performance curves as features are added in order of importance. Click buttons to toggle:
             </p>
-            
+
             <div class="chart-controls">
-              <button class="sketch-btn active" id="btn-r2" onclick="showMetric('r2')">Test R² (Higher is Better)</button>
+              <button class="sketch-btn active" id="btn-r2" onclick="showMetric('r2')">Test R² (Higher is
+                Better)</button>
               <button class="sketch-btn" id="btn-rmse" onclick="showMetric('rmse')">Test RMSE (Lower is Better)</button>
             </div>
 
@@ -1083,27 +1210,30 @@
               <!-- SVG Hand-drawn Chart -->
               <svg width="100%" height="220" viewBox="0 0 450 220" id="sfa-chart">
                 <!-- Axes -->
-                <line x1="50" y1="180" x2="420" y2="180" stroke="var(--border-dark)" stroke-width="2.5" stroke-linecap="round" />
-                <line x1="50" y1="20" x2="50" y2="180" stroke="var(--border-dark)" stroke-width="2.5" stroke-linecap="round" />
-                
+                <line x1="50" y1="180" x2="420" y2="180" stroke="var(--border-dark)" stroke-width="2.5"
+                  stroke-linecap="round" />
+                <line x1="50" y1="20" x2="50" y2="180" stroke="var(--border-dark)" stroke-width="2.5"
+                  stroke-linecap="round" />
+
                 <!-- X Gridlines and Labels -->
                 <g font-size="12" text-anchor="middle">
                   <line x1="120" y1="20" x2="120" y2="180" stroke="#e5e7eb" stroke-width="1.5" stroke-dasharray="3 3" />
                   <text x="120" y="196" font-family="var(--font-hand)">1</text>
-                  
+
                   <line x1="190" y1="20" x2="190" y2="180" stroke="#e5e7eb" stroke-width="1.5" stroke-dasharray="3 3" />
                   <text x="190" y="196" font-family="var(--font-hand)">2 (Opt)</text>
-                  
+
                   <line x1="260" y1="20" x2="260" y2="180" stroke="#e5e7eb" stroke-width="1.5" stroke-dasharray="3 3" />
                   <text x="260" y="196" font-family="var(--font-hand)">3</text>
-                  
+
                   <line x1="330" y1="20" x2="330" y2="180" stroke="#e5e7eb" stroke-width="1.5" stroke-dasharray="3 3" />
                   <text x="330" y="196" font-family="var(--font-hand)">4</text>
-                  
+
                   <line x1="400" y1="20" x2="400" y2="180" stroke="#e5e7eb" stroke-width="1.5" stroke-dasharray="3 3" />
                   <text x="400" y="196" font-family="var(--font-hand)">5</text>
-                  
-                  <text x="235" y="215" font-family="var(--font-sans)" font-weight="600" fill="#4b5563">Number of Features</text>
+
+                  <text x="235" y="215" font-family="var(--font-sans)" font-weight="600" fill="#4b5563">Number of
+                    Features</text>
                 </g>
 
                 <!-- Y Gridlines / Ticks -->
@@ -1113,20 +1243,21 @@
 
                 <!-- Line paths -->
                 <path id="chart-path" class="chart-line" stroke-width="3.5" d="" />
-                
+
                 <!-- Data Points Group -->
                 <g id="chart-points">
                   <!-- Placed dynamically by JS -->
                 </g>
-                
+
                 <!-- Elbow Point marker highlight circle -->
-                <circle id="elbow-ring" cx="190" cy="0" r="12" fill="none" stroke="var(--color-yellow)" stroke-width="2.5" stroke-dasharray="3 3" style="display:none;" />
+                <circle id="elbow-ring" cx="190" cy="0" r="12" fill="none" stroke="var(--color-yellow)"
+                  stroke-width="2.5" stroke-dasharray="3 3" style="display:none;" />
               </svg>
-              
+
               <!-- Tooltip element -->
               <div class="chart-tooltip" id="tooltip"></div>
             </div>
-            
+
             <p style="font-size:0.9rem; color:#4b5563; margin-top:0.75rem; font-style:italic;">
               *Hover over points to see exact performance metrics and included features. Notice the elbow curve!
             </p>
@@ -1138,7 +1269,8 @@
       <div class="col-6">
         <div class="sketch-card teal card-style-2">
           <h2 class="card-title">
-            <svg class="card-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="card-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
               <!-- Monitor -->
               <rect x="6" y="8" width="52" height="36" rx="4" />
               <path d="M20 44 L14 56 L50 56 L44 44" />
@@ -1148,14 +1280,16 @@
             6 & 7. Streamlit Dashboard & Tech Stack
           </h2>
           <div class="card-content">
-            
+
             <!-- Dashboard Wireframe Mockup -->
             <div class="wireframe-container">
               <div class="wireframe-header">
                 <div class="wireframe-dot" style="background:#ef4444;"></div>
                 <div class="wireframe-dot" style="background:#f59e0b;"></div>
                 <div class="wireframe-dot" style="background:#10b981;"></div>
-                <span style="font-family:var(--font-sans); font-size:0.75rem; font-weight:600; color:#6b7280; margin-left:auto;">app.py - Streamlit</span>
+                <span
+                  style="font-family:var(--font-sans); font-size:0.75rem; font-weight:600; color:#6b7280; margin-left:auto;">app.py
+                  - Streamlit</span>
               </div>
               <div class="wireframe-body">
                 <div class="wireframe-sidebar">
@@ -1178,7 +1312,8 @@
                   <div class="wireframe-chart">
                     <!-- Tiny sketched curve -->
                     <svg width="100%" height="100%">
-                      <path d="M10,60 Q40,30 80,40 Q120,50 160,20" fill="none" stroke="var(--color-blue)" stroke-width="2" />
+                      <path d="M10,60 Q40,30 80,40 Q120,50 160,20" fill="none" stroke="var(--color-blue)"
+                        stroke-width="2" />
                       <circle cx="80" cy="40" r="3" fill="var(--color-yellow)" stroke="var(--border-dark)" />
                     </svg>
                   </div>
@@ -1204,8 +1339,10 @@
       <div class="col-12">
         <div class="sketch-card yellow card-style-3">
           <h2 class="card-title">
-            <svg class="card-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M32 10 C22 10, 18 18, 18 26 C18 34, 24 38, 26 42 L26 48 L38 48 L38 42 C40 38, 46 34, 46 26 C46 18, 42 10, 32 10 Z" />
+            <svg class="card-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M32 10 C22 10, 18 18, 18 26 C18 34, 24 38, 26 42 L26 48 L38 48 L38 42 C40 38, 46 34, 46 26 C46 18, 42 10, 32 10 Z" />
               <path d="M28 48 C28 51, 30 54, 32 54 C34 54, 36 51, 36 48" />
               <path d="M28 28 L32 20 L36 28" stroke-width="2" />
               <!-- Glow -->
@@ -1216,27 +1353,41 @@
             8. Key Findings & Strategic Insights
           </h2>
           <div class="card-content" style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
-            
+
             <div style="flex: 2; min-width: 300px;">
               <ul class="sketch-list arrow-bullets">
-                <li>**R&D Spend Is the King**: R&D expenditure is the single most important predictor of profitability, explaining over **94%** of variance alone. Investors should prioritize R&D capacity when screening startups.</li>
-                <li>**Marketing Offers Marginal Value**: Marketing expenditure contributes a slight performance boost (lowering RMSE by **$76**), but only when combined with R&D Spend. It is a secondary optimization lever.</li>
-                <li>**Reject Administrative Noise**: High administrative overhead does not scale with profits. Likewise, location (New York/California vs. Florida) has negligible impact. Keep models simple to prevent overfitting.</li>
+                <li>**R&D Spend Is the King**: R&D expenditure is the single most important predictor of profitability,
+                  explaining over **94%** of variance alone. Investors should prioritize R&D capacity when screening
+                  startups.</li>
+                <li>**Marketing Offers Marginal Value**: Marketing expenditure contributes a slight performance boost
+                  (lowering RMSE by **$76**), but only when combined with R&D Spend. It is a secondary optimization
+                  lever.</li>
+                <li>**Reject Administrative Noise**: High administrative overhead does not scale with profits. Likewise,
+                  location (New York/California vs. Florida) has negligible impact. Keep models simple to prevent
+                  overfitting.</li>
               </ul>
             </div>
-            
+
             <div style="flex: 1; min-width: 250px; text-align: center;">
               <!-- Rocket Doodle Box -->
-              <div style="background: white; border: 2px solid var(--border-dark); border-radius: 8px; padding: 1rem; display: inline-block; box-shadow: 4px 4px 0px var(--border-dark);">
+              <div
+                style="background: white; border: 2px solid var(--border-dark); border-radius: 8px; padding: 1rem; display: inline-block; box-shadow: 4px 4px 0px var(--border-dark);">
                 <svg viewBox="0 0 64 64" class="doodle-icon sparkle" style="width:80px; height:80px;">
-                  <path d="M32 8 C36 12, 42 22, 42 36 C42 44, 40 48, 44 52 L36 50 L32 56 L28 50 L20 52 C24 48, 22 44, 22 36 C22 22, 28 12, 32 8 Z" fill="none" stroke="var(--border-dark)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M22 36 L42 36" fill="none" stroke="var(--border-dark)" stroke-width="2" stroke-dasharray="2 3" />
+                  <path
+                    d="M32 8 C36 12, 42 22, 42 36 C42 44, 40 48, 44 52 L36 50 L32 56 L28 50 L20 52 C24 48, 22 44, 22 36 C22 22, 28 12, 32 8 Z"
+                    fill="none" stroke="var(--border-dark)" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M22 36 L42 36" fill="none" stroke="var(--border-dark)" stroke-width="2"
+                    stroke-dasharray="2 3" />
                   <path d="M26 44 C28 46, 36 46, 38 44" fill="none" stroke="var(--border-dark)" stroke-width="2" />
                   <circle cx="32" cy="24" r="4" fill="none" stroke="var(--border-dark)" stroke-width="2" />
                   <!-- Flames -->
-                  <path d="M29 56 C28 60, 30 62, 32 60 C34 62, 36 60, 35 56" fill="none" stroke="var(--color-orange)" stroke-width="2.5" />
+                  <path d="M29 56 C28 60, 30 62, 32 60 C34 62, 36 60, 35 56" fill="none" stroke="var(--color-orange)"
+                    stroke-width="2.5" />
                 </svg>
-                <div style="font-family:var(--font-hand); font-size:1.1rem; font-weight:bold; margin-top:0.5rem; color:var(--color-orange-dark)">Ready for Production!</div>
+                <div
+                  style="font-family:var(--font-hand); font-size:1.1rem; font-weight:bold; margin-top:0.5rem; color:var(--color-orange-dark)">
+                  Ready for Production!</div>
               </div>
             </div>
 
@@ -1249,7 +1400,8 @@
     <!-- ====== FOOTER ====== -->
     <footer>
       <p>
-        Designed with ✏️ Hand-drawn Excalidraw Aesthetic · Project: <strong>L6 Crisp-RD2 Pipeline</strong> · Code available on <a href="https://github.com/miccowang66-max/L6-new-model" target="_blank">GitHub</a>
+        Designed with ✏️ Hand-drawn Excalidraw Aesthetic · Project: <strong>L6 Crisp-RD2 Pipeline</strong> · Code
+        available on <a href="https://github.com/miccowang66-max/L6-new-model" target="_blank">GitHub</a>
       </p>
     </footer>
 
@@ -1290,7 +1442,7 @@
     // Renders the chart based on the selected metric ('r2' or 'rmse')
     function renderChart(metric) {
       const data = sfaData[metric];
-      
+
       // Update Button Classes
       document.getElementById('btn-r2').classList.toggle('active', metric === 'r2');
       document.getElementById('btn-rmse').classList.toggle('active', metric === 'rmse');
@@ -1300,7 +1452,7 @@
       yLabelGroup.innerHTML = '';
       data.labels.forEach((lbl, idx) => {
         const yVal = data.yPositions[idx];
-        
+
         // Add dotted horizontal lines
         const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
         line.setAttribute("x1", "50");
@@ -1323,7 +1475,7 @@
       // Render Path (slightly wavy curves to feel hand-drawn)
       const pathEl = document.getElementById('chart-path');
       pathEl.setAttribute("stroke", data.lineColor);
-      
+
       // Generate Q bezier curved path for sketchy look
       let pathString = `M ${data.points[0].x},${data.points[0].y}`;
       for (let i = 0; i < data.points.length - 1; i++) {
@@ -1331,12 +1483,12 @@
         const p2 = data.points[i + 1];
         // Control point has a slight randomized offset for natural sketch feel
         const cx = (p1.x + p2.x) / 2;
-        const cy = (p1.y + p2.y) / 2 + (Math.random() * 4 - 2); 
+        const cy = (p1.y + p2.y) / 2 + (Math.random() * 4 - 2);
         pathString += ` Q ${cx},${cy} ${p2.x},${p2.y}`;
       }
-      
+
       pathEl.setAttribute("d", pathString);
-      
+
       // Animate line draw-in
       const pathLength = pathEl.getTotalLength();
       pathEl.style.strokeDasharray = pathLength;
@@ -1348,7 +1500,7 @@
       // Render Circles / Points
       const pointsGroup = document.getElementById('chart-points');
       pointsGroup.innerHTML = '';
-      
+
       const tooltip = document.getElementById('tooltip');
       const elbowRing = document.getElementById('elbow-ring');
 
@@ -1358,13 +1510,13 @@
         c.setAttribute("cy", p.y.toString());
         c.setAttribute("r", p.opt ? "8" : "6");
         c.setAttribute("class", "chart-point");
-        
+
         // Highlight optimal point
         if (p.opt) {
           c.setAttribute("fill", "var(--color-yellow)");
           c.setAttribute("stroke", "var(--border-dark)");
           c.setAttribute("stroke-width", "2.5");
-          
+
           // Place elbow indicator ring
           elbowRing.setAttribute("cy", p.y.toString());
           elbowRing.style.display = "block";
@@ -1381,13 +1533,13 @@
             <strong style="font-family:var(--font-hand); font-size:0.95rem; color:var(--border-dark)">${metric.toUpperCase()}: ${p.val}</strong><br>
             <span style="color:#4b5563; font-size:0.75rem;">${p.desc}</span>
           `;
-          
+
           // Position tooltip
           const chartBox = document.querySelector('.chart-box').getBoundingClientRect();
           const rect = c.getBoundingClientRect();
           tooltip.style.left = (rect.left - chartBox.left - 50) + 'px';
           tooltip.style.top = (rect.top - chartBox.top - 55) + 'px';
-          
+
           // Expand dot on hover
           c.setAttribute("r", p.opt ? "10" : "8");
         });
@@ -1415,7 +1567,7 @@
       document.getElementById('poster-content').style.display = isInteractive ? 'none' : 'block';
       document.getElementById('tab-interactive-btn').classList.toggle('active', isInteractive);
       document.getElementById('tab-poster-btn').classList.toggle('active', !isInteractive);
-      
+
       // Re-trigger chart rendering if interactive is selected to ensure SVG lines animate properly
       if (isInteractive) {
         renderChart(currentMetric);
@@ -1428,4 +1580,5 @@
     });
   </script>
 </body>
+
 </html>
