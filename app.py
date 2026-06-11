@@ -586,7 +586,7 @@ fig_elbow.add_trace(go.Scatter(
 fig_elbow.add_vline(
     x=2, line_dash="dash", line_width=3, line_color="#1e1e1e",
     annotation=dict(
-        text="<b>轉折點<br>(Elbow Point)</b>",
+        text="<b>轉折點 (Elbow Point)</b>",
         font=dict(size=14, color="#1e1e1e"),
         bgcolor="#fef08a", borderpad=4,
     ),
@@ -598,13 +598,12 @@ fig_elbow.add_vrect(
     fillcolor="#ef4444", opacity=0.08,
     annotation_text="過度擬合區域",
     annotation_position="top right",
-    annotation_font=dict(color="#ef4444"),
 )
 
 fig_elbow.update_layout(
     title="效率轉折點分析：RMSE 與 R² 雙軸曲線",
     xaxis=dict(tickmode="linear", tick0=1, dtick=1, title="特徵數量"),
-    yaxis=dict(title="RMSE ($)", titlefont=dict(color="#f97316"), tickprefix="$", tickformat=","),
+    yaxis=dict(title="RMSE ($)", titlefont=dict(color="#f97316"), tickprefix="$", tickformat=",.0f"),
     yaxis2=dict(
         title="R²", titlefont=dict(color="#10b981"),
         overlaying="y", side="right", range=[0.92, 0.96],
